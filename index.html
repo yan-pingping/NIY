@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>闫平平 · 个人简历 | 南京农业大学 · 计算机科学与技术</title>
+<meta name="description" content="闫平平 · 南京农业大学计算机科学与技术 2026 级本科生。PPT 演示设计、视频剪辑、AI 认证，附带两款自制 HTML5 小游戏作品演示。">
+<meta name="keywords" content="闫平平,个人简历,南京农业大学,计算机科学与技术,前端,HTML5游戏">
+<meta property="og:type" content="website">
+<meta property="og:title" content="闫平平 · 个人简历 | 南京农业大学 · 计算机科学与技术">
+<meta property="og:description" content="计算机科班新生 · AI 训练师认证 · 两款自制 HTML5 小游戏作品在线演示">
+<meta property="og:image" content="og-cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0a4a37">
+<script>
+/* 全局错误捕获：出错时显示红色提示，避免白屏 */
+window.onerror=function(m,u,l){var b=document.getElementById('errBox');if(b){b.style.display='block';b.innerHTML='脚本错误：'+m+'（第 '+l+' 行）。请确认代码复制完整，并以 UTF-8 编码保存。';}};
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --fd:Georgia,"Times New Roman","Songti SC","SimSun",serif;
+  --fb:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  --fm:ui-monospace,"SF Mono",Consolas,"Courier New",monospace;
+  --bg:#f4f6f1;--surface:#fff;--surface2:#eef4ec;
+  --ink:#1a2420;--ink2:#3d4a44;--muted:#6d7a73;
+  --pri:#0e5c44;--pri-ink:#0a4a37;--on-pri:#f0f8f4;
+  --acc:#d99a2b;--acc-ink:#8a6210;--acc-soft:rgba(217,154,43,.12);
+  --line:rgba(14,92,68,.2);--line-s:rgba(14,92,68,.09);
+  --nav-bg:rgba(244,246,241,.9);
+  --sh:0 1px 3px rgba(20,40,30,.06),0 8px 24px -12px rgba(20,40,30,.18);
+  --lift:0 4px 8px rgba(20,40,30,.08),0 16px 36px -16px rgba(20,40,30,.28);
+}
+[data-theme="dark"]{
+  --bg:#0d1411;--surface:#151e19;--surface2:#1a2620;
+  --ink:#e6efe9;--ink2:#c0cfc6;--muted:#8a9e93;
+  --pri:#5cc99e;--pri-ink:#80dcb9;--on-pri:#08130e;
+  --acc:#e8b455;--acc-ink:#e8b455;--acc-soft:rgba(232,180,85,.12);
+  --line:rgba(92,201,158,.22);--line-s:rgba(92,201,158,.09);
+  --nav-bg:rgba(13,20,17,.86);
+  --sh:0 1px 3px rgba(0,0,0,.4),0 10px 26px -12px rgba(0,0,0,.6);
+  --lift:0 4px 8px rgba(0,0,0,.5),0 18px 40px -16px rgba(0,0,0,.7);
+}
+html{scroll-padding-top:76px}
+@media(prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{font-family:var(--fb);background:var(--bg);color:var(--ink);font-size:15px;line-height:1.75;overflow-x:hidden;transition:background .3s,color .3s}
+/* 分层背景：网格 + 氛围光 */
+body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background:
+  radial-gradient(900px 500px at 85% -5%,var(--acc-soft),transparent 60%),
+  radial-gradient(800px 600px at -10% 30%,rgba(14,92,68,.07),transparent 55%),
+  linear-gradient(var(--line-s) 1px,transparent 1px),
+  linear-gradient(90deg,var(--line-s) 1px,transparent 1px);
+  background-size:auto,auto,32px 32px,32px 32px}
+/* 漂浮代码符号 */
+.bg-glyph{position:fixed;z-index:-1;font-family:var(--fm);font-weight:700;color:var(--pri);opacity:.05;user-select:none;pointer-events:none;animation:drift 14s ease-in-out infinite}
+.g1{font-size:170px;top:16%;left:-40px}
+.g2{font-size:140px;bottom:8%;right:-16px;animation-delay:4s}
+@keyframes drift{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-22px) rotate(4deg)}}
+.wm{position:fixed;top:20px;right:-2vw;z-index:-1;font-family:var(--fd);font-size:min(36vw,420px);line-height:1;color:transparent;-webkit-text-stroke:1.5px var(--line);opacity:.35;user-select:none;pointer-events:none}
+::selection{background:var(--pri);color:var(--on-pri)}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px;border-radius:6px}
+.wrap{width:min(1040px,92%);margin:0 auto}
+.ic{display:inline-flex;width:1em;height:1em;flex:none;vertical-align:-.12em}
+.ic svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* 导航 */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line-s)}
+.nav-in{display:flex;align-items:center;gap:16px;height:60px}
+.prog{position:fixed;top:60px;left:0;right:0;height:2px;z-index:99;pointer-events:none}
+.prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pri),var(--acc))}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.brand-m{width:33px;height:33px;border-radius:9px;background:linear-gradient(135deg,#0e5c44,#0a4634);color:#fff;font-family:var(--fd);font-size:17px;font-weight:700;display:grid;place-items:center}
+.brand-t b{font-family:var(--fd);font-size:15px;letter-spacing:1.5px;display:block;line-height:1.2}
+.brand-t i{font-style:normal;font-family:var(--fm);font-size:9px;color:var(--muted);letter-spacing:1.2px}
+.nav-links{display:flex;gap:2px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.nav-links::-webkit-scrollbar{display:none}
+.nl{font-size:13px;color:var(--muted);text-decoration:none;padding:6px 10px;border-radius:7px;white-space:nowrap;transition:color .2s,background .2s}
+.nl:hover{color:var(--ink);background:var(--line-s)}
+.nl.on{color:var(--pri-ink);font-weight:600}
+.nav-act{display:flex;gap:7px;flex:none}
+.ib{width:34px;height:34px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink2);display:grid;place-items:center;cursor:pointer;transition:transform .2s,border-color .2s,color .2s}
+.ib:hover{color:var(--pri-ink);border-color:var(--pri);transform:translateY(-1px)}
+.ib .ic{width:15px;height:15px}
+
+/* 按钮 / 徽章 */
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 17px;border-radius:9px;font-size:13.5px;font-weight:600;border:1px solid transparent;cursor:pointer;text-decoration:none;font-family:inherit;transition:transform .18s,box-shadow .18s,border-color .18s,color .18s}
+.btn .ic{width:14px;height:14px}
+.btn.p{background:var(--pri);color:var(--on-pri)}
+.btn.p:hover{transform:translateY(-2px);box-shadow:0 8px 20px -8px rgba(14,92,68,.5)}
+.btn.g{background:var(--surface);border-color:var(--line);color:var(--ink2)}
+.btn.g:hover{border-color:var(--pri);color:var(--pri-ink);transform:translateY(-2px)}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{font-family:var(--fm);font-size:11.5px;padding:4px 10px;border-radius:99px;border:1px solid var(--line);color:var(--ink2);background:var(--surface)}
+.tchip{font-family:var(--fm);font-size:11px;color:var(--pri-ink);background:var(--acc-soft);border:1px solid var(--line);padding:4px 10px;border-radius:99px;white-space:nowrap}
+
+/* Hero */
+.hero{padding:118px 0 56px}
+.hero-g{display:grid;grid-template-columns:1.08fr .92fr;gap:44px;align-items:center}
+.eyebrow{font-family:var(--fm);font-size:11.5px;letter-spacing:.6px;color:var(--pri-ink);display:inline-flex;align-items:center;gap:7px;background:var(--acc-soft);border:1px solid var(--line);padding:5px 12px;border-radius:99px;margin-bottom:16px}
+.pulse{width:7px;height:7px;border-radius:50%;background:#2fae72;display:inline-block;animation:pu 2s infinite}
+@keyframes pu{0%{box-shadow:0 0 0 0 rgba(47,174,114,.5)}70%{box-shadow:0 0 0 7px rgba(47,174,114,0)}100%{box-shadow:0 0 0 0 rgba(47,174,114,0)}}
+.h-name{font-family:var(--fd);font-size:clamp(2.8rem,7vw,4.2rem);line-height:1.1;letter-spacing:3px;margin-bottom:8px}
+.h-sub{font-family:var(--fm);font-size:12.5px;color:var(--muted);margin-bottom:18px}
+.h-sum{font-size:14.5px;line-height:2;color:var(--ink2);max-width:52ch;margin-bottom:18px}
+.h-cta{display:flex;flex-wrap:wrap;gap:9px}
+.h-st{margin-top:16px;font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:8px}
+/* 终端 */
+.h-right{position:relative}
+.term{background:#0b1611;border:1px solid rgba(92,201,158,.25);border-radius:13px;overflow:hidden;font-family:var(--fm);box-shadow:0 22px 50px -22px rgba(8,38,26,.6);position:relative;z-index:1}
+.t-bar{display:flex;align-items:center;gap:6px;padding:10px 13px;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.07)}
+.td{width:10px;height:10px;border-radius:50%}.td.r{background:#ff5f57}.td.y{background:#febc2e}.td.g{background:#28c840}
+.t-title{margin-left:7px;font-size:11px;color:#7d948a}
+.t-body{padding:16px 16px 22px;font-size:12.5px;line-height:2;color:#c9dccf;min-height:196px}
+.tl{white-space:pre-wrap;word-break:break-all;opacity:0;transform:translateY(4px);transition:opacity .35s,transform .35s}
+.tl.show{opacity:1;transform:none}
+.tu{color:#7ee2b8}.tp{color:#e9b455}.ts{color:#8fe6c0}.tdim{color:#8aa396}.tc{color:#e6efe9}.tok{color:#7ee2b8}
+.typing .tl:last-child::after{content:"▍";color:#e9b455;animation:bl 1s steps(2) infinite}
+@keyframes bl{50%{opacity:0}}
+/* 一卡通 */
+.idcard{position:relative;z-index:2;width:340px;max-width:100%;margin:-58px 0 0 -18px;border-radius:16px;padding:18px 22px 16px;color:#eaf6ef;background:linear-gradient(135deg,#0d5c44 0%,#0a4634 55%,#11694e 100%);box-shadow:0 24px 50px -18px rgba(8,38,26,.55);transform:rotate(-2.5deg);transition:transform .35s}
+.idcard:hover{transform:rotate(0) translateY(-4px)}
+.idcard::before{content:"";position:absolute;inset:0;border-radius:16px;background:repeating-linear-gradient(115deg,rgba(255,255,255,.05) 0 2px,transparent 2px 9px);pointer-events:none}
+.id-top{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.id-crest{width:40px;height:40px;flex:none}
+.id-uni b{display:block;font-size:14px;letter-spacing:3px}
+.id-uni i{display:block;font-style:normal;font-family:var(--fm);font-size:8px;letter-spacing:1px;opacity:.7}
+.id-chip{width:36px;height:26px;border-radius:5px;background:linear-gradient(135deg,#e9c46a,#c9962e);position:relative;margin-bottom:12px}
+.id-chip::after{content:"";position:absolute;inset:5px 4px;border:1px solid rgba(120,80,10,.55);border-radius:3px}
+.id-row{display:flex;gap:24px;margin-bottom:10px;flex-wrap:wrap}
+.id-f i{display:block;font-style:normal;font-family:var(--fm);font-size:9px;opacity:.65;letter-spacing:1px}
+.id-f b{font-size:14px;letter-spacing:1px}
+.id-led{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-family:var(--fm);margin-bottom:12px}
+.id-led span{width:7px;height:7px;border-radius:50%;background:#7ef0b2;box-shadow:0 0 6px #7ef0b2;animation:pu 2s infinite}
+.id-bot{display:flex;align-items:center;gap:12px}
+.id-bar{flex:1;height:24px;border-radius:2px;opacity:.85;background:repeating-linear-gradient(90deg,#eaf6ef 0 2px,transparent 2px 5px,#eaf6ef 5 6px,transparent 6px 10px)}
+.id-code{font-family:var(--fm);font-size:9px;letter-spacing:1.5px;opacity:.75;white-space:nowrap}
+
+/* 通用 Section */
+.sec{padding:52px 0}
+.sh{display:flex;align-items:flex-end;gap:14px;margin-bottom:28px}
+.sn{font-family:var(--fm);font-size:12px;color:var(--acc-ink);border:1px solid var(--line);padding:3px 8px;border-radius:6px;transform:translateY(-6px)}
+.se{font-family:var(--fm);font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:3px}
+.sc{font-family:var(--fd);font-size:clamp(1.5rem,3vw,2rem);font-weight:700;letter-spacing:1px}
+.sr{flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent);margin-bottom:10px}
+.card{background:var(--surface);border:1px solid var(--line-s);border-radius:14px;padding:22px;box-shadow:var(--sh);position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s,border-color .2s}
+.card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--pri),var(--acc));transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.card:hover{transform:translateY(-3px);border-color:var(--line);box-shadow:var(--lift)}
+.card:hover::before{transform:scaleX(1)}
+
+/* 亮点：认证横幅 + 数字条目 */
+.cert{display:flex;gap:18px;align-items:center;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:14px;padding:20px 24px;box-shadow:var(--sh);margin-bottom:26px;transition:transform .2s,box-shadow .2s}
+.cert:hover{transform:translateY(-3px);box-shadow:var(--lift)}
+.seal{width:64px;height:64px;flex:none}
+.cert-t{font-family:var(--fd);font-size:1.15rem;letter-spacing:.5px;margin-bottom:4px}
+.cert-d{font-size:13px;color:var(--ink2);line-height:1.8}
+.cert-r{margin-left:auto;flex:none;text-align:right}
+.hl-strip{display:flex;gap:26px;flex-wrap:wrap}
+.hl-item{flex:1;min-width:210px;padding-left:18px;border-left:1px solid var(--line)}
+.hl-num{font-family:var(--fd);font-size:2rem;color:var(--acc);line-height:1;margin-bottom:6px}
+.hl-t{font-weight:700;font-size:14px;margin-bottom:4px}
+.hl-d{font-size:12.5px;color:var(--muted);line-height:1.8}
+
+/* 时间线 */
+.tline{border-left:2px solid var(--line);margin-left:6px}
+.ti{position:relative;padding:0 0 30px 26px}
+.ti:last-child{padding-bottom:4px}
+.ti::before{content:"";position:absolute;left:-7px;top:5px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:3px solid var(--pri);transition:transform .2s,border-color .2s}
+.ti:hover::before{transform:scale(1.2);border-color:var(--acc)}
+.ti.future::before{border-style:dashed;border-color:var(--muted)}
+.ti-h{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.ti-r{font-family:var(--fd);font-size:1.1rem;letter-spacing:.5px;margin-bottom:3px}
+.ti-o{font-size:12.5px;color:var(--muted)}
+.ti-p{list-style:none}
+.ti-p li{position:relative;padding:0 0 8px 18px;font-size:14px;line-height:1.85;color:var(--ink2)}
+.ti-p li::before{content:"▸";position:absolute;left:0;top:0;color:var(--acc-ink)}
+
+/* 技能：加载中进度条 */
+.sk-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.sk-g h3{font-family:var(--fd);font-size:1rem;letter-spacing:.8px;display:flex;align-items:center;gap:9px;margin-bottom:16px}
+.sk-g h3 .ic{width:16px;height:16px;color:var(--acc-ink)}
+.sk-i{margin-bottom:15px}
+.sk-i:last-child{margin-bottom:0}
+.sk-t{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.sk-n{font-size:13px;font-weight:600}
+.sk-pct{font-family:var(--fm);font-size:10.5px;color:var(--acc-ink)}
+.bar{height:8px;border-radius:99px;background:var(--line-s);overflow:hidden}
+.bar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--pri),var(--acc));position:relative;transition:width 1.1s cubic-bezier(.22,.8,.36,1)}
+.bar i.learn::after{content:"";position:absolute;inset:0;border-radius:99px;background:repeating-linear-gradient(45deg,rgba(255,255,255,.3) 0 6px,transparent 6px 12px);animation:stripes 1s linear infinite}
+@keyframes stripes{to{background-position:17px 0}}
+.rv.in .bar i{width:var(--w)}
+
+/* 教育 */
+.edu-g{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;align-items:start}
+.edu-s{font-family:var(--fd);font-size:1.35rem;letter-spacing:1px;margin-bottom:4px}
+.edu-m{font-size:13.5px;color:var(--ink2);margin-bottom:10px}
+.edu-b{margin-top:14px}
+.edu-b h4{font-size:11px;font-family:var(--fm);letter-spacing:1.2px;color:var(--muted);margin-bottom:8px}
+.aw-r{display:flex;gap:12px;align-items:flex-start;padding:13px 0;border-bottom:1px dashed var(--line)}
+.aw-r:last-child{border-bottom:none;padding-bottom:0}
+.aw-y{font-family:var(--fm);font-size:11px;color:var(--acc-ink);background:var(--acc-soft);border:1px solid var(--line);padding:3px 8px;border-radius:6px;flex:none;margin-top:2px}
+.aw-r>.ic{width:17px;height:17px;color:var(--pri);flex:none;margin-top:3px}
+.aw-n{font-size:13.5px;font-weight:700}
+.aw-d{font-size:12px;color:var(--muted);margin-top:2px}
+
+/* 关于我 */
+.ab-w{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:start}
+.ab-m{font-family:var(--fd);font-size:4.5rem;line-height:.8;color:var(--acc);opacity:.8}
+.ab-l{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:0 30px}
+.ab-l li{display:flex;gap:11px;font-size:13.5px;line-height:1.9;color:var(--ink2);padding:14px 2px;border-bottom:1px dashed var(--line)}
+.ab-l .ic{width:15px;height:15px;color:var(--acc-ink);flex:none;margin-top:5px}
+.ab-l b{color:var(--pri-ink)}
+
+/* 页脚等 */
+.ft{border-top:1px solid var(--line-s);padding:22px 0 30px;margin-top:16px}
+.ft-in{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.ft a{color:var(--pri-ink);text-decoration:none}
+.bt{position:fixed;right:20px;bottom:20px;width:42px;height:42px;border-radius:11px;border:1px solid var(--line);background:var(--surface);color:var(--pri-ink);display:grid;place-items:center;cursor:pointer;box-shadow:var(--sh);opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .25s,transform .25s;z-index:90}
+.bt.show{opacity:1;transform:none;pointer-events:auto}
+.bt:hover{border-color:var(--pri);transform:translateY(-2px)}
+.bt .ic{width:17px;height:17px}
+.toast{position:fixed;left:50%;bottom:30px;transform:translate(-50%,14px);background:var(--surface);border:1px solid var(--pri);color:var(--ink);padding:10px 18px;border-radius:10px;box-shadow:var(--lift);font-size:13px;display:flex;align-items:center;gap:8px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:200}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.toast .ic{width:14px;height:14px;color:var(--pri)}
+.rv{opacity:0;transform:translateY(16px);transition:opacity .55s ease,transform .55s ease}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  html{scroll-behavior:auto}
+  .rv{opacity:1;transform:none}
+  .rv .bar i{width:var(--w)}
+}
+@media(max-width:900px){
+  .hero{padding:104px 0 44px}
+  .hero-g{grid-template-columns:1fr;gap:34px}
+  .edu-g{grid-template-columns:1fr}
+  .ab-l{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+  .brand-t i{display:none}
+  .nl{padding:6px 7px;font-size:12px}
+  .ab-w{grid-template-columns:1fr}
+  .ab-m{font-size:3rem}
+  .idcard{margin:-44px 6px 0 6px;transform:rotate(-1.5deg)}
+  .cert{flex-direction:column;align-items:flex-start}
+  .cert-r{margin-left:0;text-align:left}
+}
+/* 游戏预览卡片 */
+.game-card{background:var(--surface);border:1px solid var(--line-s);border-radius:14px;padding:16px;box-shadow:var(--sh);position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s,border-color .2s}
+.game-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--acc),var(--pri));transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.game-card:hover{transform:translateY(-3px);border-color:var(--line);box-shadow:var(--lift)}
+.game-card:hover::before{transform:scaleX(1)}
+.game-intro{font-size:13.5px;color:var(--ink2);line-height:1.9;margin-bottom:14px;padding:0 4px}
+.game-intro .ic{width:14px;height:14px;color:var(--acc-ink);vertical-align:-3px}
+
+/* 游戏预览区 */
+.game-preview{position:relative;width:100%;padding-top:62.5%;border-radius:10px;overflow:hidden;cursor:pointer;background:radial-gradient(ellipse at 50% 30%,#1a2a3a 0%,#0a0a1a 70%);border:2px solid var(--line-s);transition:border-color .3s,transform .2s}
+.game-preview:hover{border-color:var(--pri)}
+.game-preview:hover .game-preview-overlay{background:rgba(0,0,0,.55)}
+.game-preview:hover .game-preview-btn{transform:translate(-50%,-50%) scale(1.06);box-shadow:0 0 30px rgba(0,255,255,.4)}
+.game-preview-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.game-preview-title{font-family:var(--fd);font-size:clamp(1.4rem,3vw,2.2rem);color:#00ffff;text-shadow:0 0 15px rgba(0,255,255,.5);letter-spacing:4px;margin-bottom:6px;z-index:1}
+.game-preview-sub{font-family:var(--fm);font-size:11px;color:#8aa396;letter-spacing:2px;z-index:1}
+.game-preview-overlay{position:absolute;inset:0;background:rgba(0,0,0,.35);transition:background .3s;z-index:2}
+.game-preview-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:3;display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:99px;font-size:15px;font-weight:700;color:#fff;background:rgba(0,0,0,.65);border:2px solid #00ffff;cursor:pointer;transition:transform .25s,box-shadow .25s;letter-spacing:1px;white-space:nowrap;backdrop-filter:blur(4px)}
+.game-preview-btn .ic{width:18px;height:18px;color:#00ffff}
+
+/* 游戏预览中漂浮的星星 */
+.game-preview-star{position:absolute;border-radius:50%;background:#fff;animation:gameStarBlink 2s ease-in-out infinite;z-index:0}
+@keyframes gameStarBlink{0%,100%{opacity:.3}50%{opacity:.9}}
+
+/* 游戏全屏模态框 */
+.game-modal{position:fixed;inset:0;z-index:310;background:rgba(0,0,0,.92);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .35s;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.game-modal.show{opacity:1;pointer-events:auto}
+.game-modal-inner{position:relative;width:min(96vw,1000px);aspect-ratio:4/3;border-radius:12px;overflow:hidden;box-shadow:0 0 60px rgba(0,255,255,.15),0 24px 60px rgba(0,0,0,.6);border:2px solid rgba(0,255,255,.2)}
+.game-modal-inner iframe{width:100%;height:100%;border:none;display:block}
+.game-modal-close{position:absolute;top:-44px;right:0;display:flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.6);color:#fff;font-size:13px;cursor:pointer;font-family:inherit;transition:background .2s,transform .2s;white-space:nowrap}
+.game-modal-close:hover{background:rgba(255,255,255,.15);transform:scale(1.04)}
+.game-modal-close .ic{width:14px;height:14px}
+
+/* 游戏内点击提示 */
+.game-focus-hint{position:absolute;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.5);cursor:pointer;transition:opacity .3s}
+.game-focus-hint span{display:inline-flex;align-items:center;gap:8px;padding:14px 30px;border-radius:99px;font-size:15px;font-weight:700;color:#fff;background:rgba(0,0,0,.7);border:2px solid #00ffff;letter-spacing:1px;animation:gameHintPulse 2s ease-in-out infinite}
+.game-focus-hint.fading{opacity:0;pointer-events:none}
+@keyframes gameHintPulse{0%,100%{box-shadow:0 0 10px rgba(0,255,255,.3)}50%{box-shadow:0 0 30px rgba(0,255,255,.6)}}
+
+/* 游戏操作提示 */
+.game-controls{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;padding:0 4px}
+.game-tip{font-family:var(--fm);font-size:11px;color:var(--muted);padding:5px 10px;border-radius:6px;background:var(--surface2);border:1px solid var(--line-s)}
+/* 双游戏卡片布局 */
+#gameWrap{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+/* 内嵌游戏展示卡片（index.html / tank.html 封面入口） */
+.game-embed-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.game-embed-card{background:var(--surface);border:1px solid var(--line-s);border-radius:14px;padding:16px;box-shadow:var(--sh);overflow:hidden}
+.game-embed-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+.game-embed-name{font-family:var(--fd);font-size:1.15rem;letter-spacing:.5px;color:var(--pri-ink)}
+.game-embed-sub{font-family:var(--fm);font-size:10px;letter-spacing:1.5px;color:var(--muted);margin-top:2px}
+.game-embed-cover{position:relative;display:block;width:100%;aspect-ratio:4/3;border-radius:10px;overflow:hidden;border:2px solid var(--line-s);background:#0a0a1a;text-decoration:none;transition:border-color .25s,transform .2s}
+.game-embed-cover img{width:100%;height:100%;object-fit:cover;display:block}
+.game-embed-cover:hover{border-color:var(--pri);transform:translateY(-2px)}
+.game-embed-cover::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(0,0,0,.45));transition:background .25s}
+.game-embed-cover:hover::after{background:linear-gradient(180deg,rgba(0,0,0,.12) 0%,rgba(0,0,0,.55))}
+.game-embed-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;display:inline-flex;align-items:center;gap:8px;padding:12px 26px;border-radius:99px;font-size:15px;font-weight:700;color:#fff;background:rgba(0,0,0,.62);border:2px solid #fff;backdrop-filter:blur(4px);letter-spacing:1px;white-space:nowrap;transition:transform .22s,box-shadow .22s;text-align:center}
+.game-embed-cover:hover .game-embed-play{transform:translate(-50%,-50%) scale(1.06);box-shadow:0 0 24px rgba(255,255,255,.45)}
+/* 坦克大战卡片：军绿配色预览 */
+.game-preview.tank{background:radial-gradient(ellipse at 50% 30%,#2c3a1e 0%,#10160a 70%)}
+.game-preview.tank .game-preview-title{color:#ffd54f;text-shadow:0 0 15px rgba(255,213,79,.55)}
+.game-preview.tank .game-preview-btn{border-color:#ffd54f;color:#ffd54f}
+.game-preview.tank .game-preview-btn .ic{color:#ffd54f}
+.game-preview.tank .game-preview-star{background:#e8ffb0}
+
+@media(max-width:640px){
+  #gameWrap{grid-template-columns:1fr}
+  .game-embed-grid{grid-template-columns:1fr} /* 移动端单列堆叠 */
+  .game-preview{padding-top:75%}
+  .game-card{padding:12px}
+  .game-modal-inner{width:100vw;border-radius:0;aspect-ratio:auto;height:100vh}
+  .game-modal-close{top:8px;right:8px}
+}
+@media print{
+  .game-card,.game-modal,.game-embed-grid{display:none!important}
+}
+.cert-gallery-wrap{margin-top:18px}
+.cert-gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.cert-item{aspect-ratio:3/4;border-radius:10px;overflow:hidden;cursor:pointer;border:2px solid var(--line-s);background:var(--surface2);transition:transform .22s,box-shadow .22s,border-color .22s;position:relative}
+.cert-item:hover{transform:translateY(-4px);box-shadow:var(--lift);border-color:var(--pri)}
+.cert-item img{width:100%;height:100%;object-fit:cover;display:block}
+.cert-item .cert-label{position:absolute;bottom:0;left:0;right:0;padding:6px 10px;background:linear-gradient(transparent,rgba(0,0,0,.7));color:#fff;font-size:11px;font-family:var(--fm);letter-spacing:.5px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cert-item.hidden-cert{display:none}
+.cert-toggle-wrap{grid-column:1/-1;text-align:center;margin-top:10px}
+.print-only{display:none}
+.cert-toggle-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 22px;border-radius:9px;font-size:13px;font-weight:600;border:1px solid var(--line);background:var(--surface);color:var(--ink2);cursor:pointer;font-family:inherit;transition:transform .18s,box-shadow .18s,border-color .18s,color .18s}
+.cert-toggle-btn:hover{border-color:var(--pri);color:var(--pri-ink);transform:translateY(-1px)}
+.cert-toggle-btn .ic{width:14px;height:14px;transition:transform .25s}
+.cert-toggle-btn.expanded .ic{transform:rotate(180deg)}
+/* 灯箱 */
+.lightbox{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.88);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.lightbox.show{opacity:1;pointer-events:auto}
+.lightbox img{max-width:90vw;max-height:85vh;border-radius:12px;box-shadow:0 24px 60px rgba(0,0,0,.55);object-fit:contain}
+.lightbox-close{position:absolute;top:18px;right:18px;width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(0,0,0,.5);color:#fff;display:grid;place-items:center;cursor:pointer;font-size:20px;transition:background .2s,transform .2s}
+.lightbox-close:hover{background:rgba(255,255,255,.15);transform:scale(1.08)}
+.lightbox-prev,.lightbox-next{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(0,0,0,.5);color:#fff;display:grid;place-items:center;cursor:pointer;font-size:22px;transition:background .2s,transform .2s}
+.lightbox-prev{left:20px}
+.lightbox-next{right:20px}
+.lightbox-prev:hover,.lightbox-next:hover{background:rgba(255,255,255,.15);transform:translateY(-50%) scale(1.08)}
+@media(max-width:640px){
+  .cert-gallery{grid-template-columns:repeat(2,1fr);gap:8px}
+  .lightbox-prev{left:8px}.lightbox-next{right:8px}
+}
+@media print{
+  :root{--bg:#fff;--surface:#fff;--surface2:#fff;--ink:#111;--ink2:#333;--muted:#555;--pri:#0a4a37;--pri-ink:#0a4a37;--on-pri:#fff;--acc:#b07d1a;--acc-ink:#8a6210;--line:#bbb;--line-s:#ddd;--sh:none;--lift:none;--nav-bg:#fff}
+  @page{margin:12mm}
+  body{font-size:12px;background:#fff}
+  body::before,.wm,.bg-glyph,.nav,.bt,.toast,.h-right,.h-cta,.h-st,.sr,.no-print,.lightbox,.cert-toggle-wrap,.game-card,.game-modal{display:none!important}
+  .hero{padding:8px 0 4px}
+  .hero-g{grid-template-columns:1fr;gap:0}
+  .sec{padding:10px 0}
+  .sh{margin-bottom:12px}
+  .rv{opacity:1!important;transform:none!important}
+  .rv .bar i{width:var(--w)!important}
+  .card,.cert{box-shadow:none;break-inside:avoid}
+  .cert-item.hidden-cert{display:block!important}
+  .ti{break-inside:avoid}
+  .print-only{display:block}
+  .p-proj{border:1px solid var(--line-s);border-left:3px solid var(--pri);border-radius:4px;padding:8px 12px;margin-bottom:8px;break-inside:avoid}
+  .p-proj h3{font-size:12.5px;margin-bottom:2px}
+  .p-proj .p-tech{font-family:var(--fm);font-size:10px;color:var(--muted);margin-bottom:4px}
+  .p-proj ul{margin:0 0 0 15px;font-size:10.5px;line-height:1.6}
+  .p-note{font-size:10px;color:var(--muted);margin-top:2px}
+  .ft{margin-top:6px;padding:8px 0}
+}
+</style>
+</head>
+<body>
+<div class="wm" aria-hidden="true">闫</div>
+<div class="bg-glyph g1" aria-hidden="true">&lt;/&gt;</div>
+<div class="bg-glyph g2" aria-hidden="true">{ }</div>
+<div id="errBox" style="display:none;position:fixed;top:70px;left:50%;transform:translateX(-50%);z-index:999;background:#8a2424;color:#fff;padding:12px 18px;border-radius:10px;font-size:13px;max-width:90%;box-shadow:0 10px 30px rgba(0,0,0,.3)"></div>
+
+<header class="nav no-print">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top">
+      <span class="brand-m">闫</span>
+      <span class="brand-t"><b>闫平平</b><i>FRESHMAN · 2026</i></span>
+    </a>
+    <nav class="nav-links" id="navLinks" aria-label="导航"></nav>
+    <div class="nav-act" id="navAct"></div>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="top"><div class="wrap hero-g" id="heroG"></div></section>
+
+  <section class="sec" id="highlights">
+    <div class="wrap">
+      <div class="sh rv"><span class="sn">01</span><div><div class="se">Highlights</div><h2 class="sc">我的亮点</h2></div><span class="sr"></span></div>
+      <div id="hlWrap"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="experience">
+    <div class="wrap">
+      <div class="sh rv"><span class="sn">02</span><div><div class="se">Experience</div><h2 class="sc">实践经历</h2></div><span class="sr"></span></div>
+      <div id="expWrap"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="game">
+    <div class="wrap">
+      <div class="sh rv"><span class="sn">03</span><div><div class="se">Mini Games</div><h2 class="sc">小游戏 · 作品演示</h2></div><span class="sr"></span></div>
+      <div class="game-embed-grid" id="gameEmbedGrid">
+        <div class="game-embed-card rv">
+          <div class="game-embed-head">
+            <div>
+              <div class="game-embed-name">星际战机</div>
+              <div class="game-embed-sub">STAR FIGHTER · HTML5 Canvas</div>
+            </div>
+            <span class="tchip">点击试玩</span>
+          </div>
+          <a class="game-embed-cover" href="index.html" target="_blank" rel="noopener" aria-label="进入星际战机">
+            <img src="飞机大战封面图.png" alt="星际战机封面图" loading="lazy">
+            <span class="game-embed-play">▶ 进入游戏</span>
+          </a>
+        </div>
+        <div class="game-embed-card rv">
+          <div class="game-embed-head">
+            <div>
+              <div class="game-embed-name">坦克大战</div>
+              <div class="game-embed-sub">TANK BATTLE · HTML5 Canvas</div>
+            </div>
+            <span class="tchip">点击试玩</span>
+          </div>
+          <a class="game-embed-cover" href="tank.html" target="_blank" rel="noopener" aria-label="进入坦克大战">
+            <img src="坦克大战封面图.png" alt="坦克大战封面图" loading="lazy">
+            <span class="game-embed-play">▶ 进入游戏</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="skills">
+    <div class="wrap">
+      <div class="sh rv"><span class="sn">04</span><div><div class="se">Skill Tree</div><h2 class="sc">技能树 · 持续点亮中</h2></div><span class="sr"></span></div>
+      <div class="sk-grid" id="skGrid"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="education">
+    <div class="wrap">
+      <div class="sh rv"><span class="sn">05</span><div><div class="se">Education</div><h2 class="sc">教育背景与证书</h2></div><span class="sr"></span></div>
+      <div class="edu-g" id="eduG"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="about">
+    <div class="wrap">
+      <div class="sh rv"><span class="sn">06</span><div><div class="se">About</div><h2 class="sc">关于我</h2></div><span class="sr"></span></div>
+      <div class="ab-w rv" id="abW"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="ft">
+  <div class="wrap ft-in">
+    <span>© <span id="yr"></span> 闫平平 · 南京农业大学 · 计算机科学与技术</span>
+    <span style="font-family:var(--fm);font-size:11px">更新于 <span id="upd"></span> · <a href="#top">返回顶部 ↑</a></span>
+  </div>
+</footer>
+
+<button class="bt no-print" id="btop" aria-label="返回顶部"></button>
+<div class="prog no-print"><i id="progBar"></i></div>
+<div class="toast" id="toast" role="status"></div>
+<noscript><p style="text-align:center;padding:100px 20px">请启用 JavaScript 查看完整内容。</p></noscript>
+
+<script>
+(function(){
+"use strict";
+try{
+
+/* ================= 数据 ================= */
+var R = {
+  name:"闫平平",
+  github:"https://github.com/yan-pingping/youxichutiao",
+  phone:"17863260519",
+  phoneD:"178-6326-0519",
+  emailParts:["941","534","426","@","qq",".","com"],
+  loc:"南京",
+  identity:"南京农业大学 · 计算机科学与技术（本科）· 2026.09 – 2030.06",
+  status:"2026 级大一新生 · 在校学习中",
+  summary:"南京农业大学计算机科学与技术 2026 级本科生，入学前已取得阿里巴巴人工智能训练师认证。具备 PPT 演示设计、视频剪辑与基础编程能力。对 AI、全栈开发与内容创作充满热情，正在系统学习编程，期待在实践中快速成长。",
+  keywords:["Python（学习中）","PPT 演示设计","视频剪辑","Excel","AI 数据标注基础","信息检索"],
+  cert:{title:"阿里巴巴人工智能训练师认证",desc:"入学前即取得工信部认可的职业技能等级证书，完成 AI 数据标注、模型基础认知等体系化培训与实操考核。",year:"2025",tag:"工信部认可 · 职业技能等级证书"},
+  hls:[
+    {n:"01",t:"可视化表达能力",d:"熟练运用 PPT 与视频剪辑，把复杂信息变成清晰、好看的呈现，是技术与内容之间的桥梁。"},
+    {n:"02",t:"编程学习已启动",d:"正在系统学习 Python 与计算机基础课程，目标在大一结束前完成第一个个人小项目。"}
+  ],
+  exp:[
+    {role:"更多经历 · 即将开启",org:"项目实践 / 学科竞赛 / 实习",period:"2026 – 2030",future:true,points:[
+      "大一：扎实打好编程基础，完成首个个人项目",
+      "大二：参与科创竞赛（计算机设计大赛 / 互联网+ 等）",
+      "大三起：寻找技术方向实习，积累真实工程经验"
+    ]}
+  ],
+  skills:[
+    {group:"正在学习",icon:"code",items:[
+      {name:"Python",pct:30,learn:true},
+      {name:"C 语言 / 计算机基础",pct:20,learn:true},
+      {name:"数据结构与算法",pct:10,learn:true}
+    ]},
+    {group:"已掌握工具",icon:"video",items:[
+      {name:"PowerPoint 演示设计",pct:80,learn:false},
+      {name:"视频剪辑（剪映等）",pct:72,learn:false},
+      {name:"Excel 表格处理",pct:70,learn:false}
+    ]},
+    {group:"AI 与认知",icon:"spark",items:[
+      {name:"AI 数据标注基础",pct:65,learn:false},
+      {name:"人工智能基础概念",pct:50,learn:false},
+      {name:"信息检索与自学",pct:75,learn:false}
+    ]}
+  ],
+  edu:{
+    school:"南京农业大学",
+    major:"计算机科学与技术（本科）",
+    period:"2026.09 – 2030.06（预计）",
+    courses:["数据结构与算法","操作系统","计算机网络","数据库原理","人工智能导论","软件工程","离散数学","线性代数"],
+    note:"2026 级新生，即将开启四年系统学习。目标：扎实掌握计算机核心知识，积极参与科创竞赛与项目实践，毕业前具备独立开发能力。"
+  },
+  awards:[{year:"2025",name:"阿里巴巴人工智能训练师认证",note:"工信部认可 · 职业技能等级证书"}],
+  certPhotos:[
+    {src:"证书/人工智能训练师（高级）-闫平平-20260717.jpg",label:"人工智能训练师（高级）"},
+    {src:"证书/Ai大学认证证书.png",label:"AI大学认证证书"},
+    {src:"证书/Ai大学认证证书 (1).png",label:"AI大学认证证书"},
+    {src:"证书/Ai大学认证证书3.png",label:"AI大学认证证书"},
+    {src:"证书/Ai大学认证证书4.png",label:"AI大学认证证书"},
+    {src:"证书/1.png",label:"证书展示 1"},
+    {src:"证书/2.png",label:"证书展示 2"},
+    {src:"证书/3.png",label:"证书展示 3"},
+    {src:"证书/4.png",label:"证书展示 4"},
+    {src:"证书/5.jpg",label:"证书展示 5"}
+  ],
+  about:[
+    "计算机科班新生，对 <b>AI、全栈开发与内容创作</b>充满热情，入学前已主动考取阿里 AI 训练师认证。",
+    "具备 <b>PPT 设计与视频剪辑</b>实操能力，擅长把复杂信息转化为清晰、美观的可视化表达。",
+    "自驱力强，目标明确：大一打基础、大二做项目、大三找实习，<b>一步一个脚印</b>。"
+  ]
+};
+
+/* ================= 工具 ================= */
+function $(id){return document.getElementById(id)}
+function ce(tag,cls,html){var d=document.createElement(tag);if(cls){d.className=cls}if(html){d.innerHTML=html}return d}
+function email(){return R.emailParts.join("")}
+var rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+var IC={
+  phone:'<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/>',
+  printer:'<path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/>',
+  sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>',
+  moon:'<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>',
+  up:'<path d="M12 19V5M5 12l7-7 7 7"/>',
+  copy:'<rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>',
+  check:'<path d="M20 6 9 17l-5-5"/>',
+  pin:'<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/>',
+  award:'<circle cx="12" cy="8" r="6"/><path d="M15.48 12.89 17 22l-5-3-5 3 1.52-9.11"/>',
+  code:'<path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/>',
+  video:'<path d="m22 8-6 4 6 4V8z"/><rect x="2" y="6" width="14" height="12" rx="2"/>',
+  users:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',
+  book:'<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>',
+  spark:'<path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/>',
+  play:'<polygon points="5 3 19 12 5 21 5 3"/>',
+  close:'<path d="M18 6 6 18M6 6l12 12"/>',
+  github:'<path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/>'
+};
+function ic(n){return '<span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+(IC[n]||"")+'</svg></span>'}
+
+/* ================= 主题 ================= */
+function setTheme(t){
+  document.documentElement.setAttribute("data-theme",t);
+  try{localStorage.setItem("ypp-t",t)}catch(e){}
+  var b=$("themeBtn");
+  if(b){b.innerHTML=ic(t==="dark"?"sun":"moon")}
+}
+(function(){
+  var s=null;
+  try{s=localStorage.getItem("ypp-t")}catch(e){}
+  if(!s){s=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}
+  setTheme(s);
+})();
+
+/* ================= 导航 ================= */
+var NAV=[{id:"highlights",l:"亮点"},{id:"experience",l:"经历"},{id:"game",l:"游戏"},{id:"skills",l:"技能"},{id:"education",l:"教育"},{id:"about",l:"关于"}];
+(function(){
+  var nl=$("navLinks"),i,it,a;
+  for(i=0;i<NAV.length;i++){
+    it=NAV[i];
+    a=ce("a","nl",it.l);
+    a.href="#"+it.id;
+    a.setAttribute("data-spy",it.id);
+    nl.appendChild(a);
+  }
+  var act=$("navAct");
+  var tb=ce("button","ib");
+  tb.id="themeBtn";
+  tb.title="切换深浅色";
+  tb.setAttribute("aria-label","切换深浅色");
+  tb.onclick=function(){
+    var cur=document.documentElement.getAttribute("data-theme");
+    setTheme(cur==="dark"?"light":"dark");
+  };
+  var pb=ce("button","ib",ic("printer"));
+  pb.title="打印 / 导出 PDF";
+  pb.setAttribute("aria-label","打印");
+  pb.onclick=function(){window.print()};
+  act.appendChild(tb);
+  act.appendChild(pb);
+})();
+
+/* ================= Hero ================= */
+(function(){
+  var g=$("heroG");
+  var left=ce("div");
+  left.innerHTML=
+    '<span class="eyebrow"><span class="pulse"></span> '+R.status+'</span>'+
+    '<h1 class="h-name">'+R.name+'<span style="color:var(--acc)">。</span></h1>'+
+    '<p class="h-sub">'+R.identity+'</p>'+
+    '<p class="h-sum">'+R.summary+'</p>';
+  var cta=ce("div","h-cta");
+  var mb=ce("button","btn p",ic("copy")+" 复制邮箱");
+  mb.onclick=function(){copyEmail(mb)};
+  cta.appendChild(mb);
+  var pb=ce("a","btn g",ic("phone")+" "+R.phoneD);
+  pb.href="tel:"+R.phone;
+  cta.appendChild(pb);
+  if(R.github){
+    var gh=ce("a","btn g",ic("github")+" GitHub");
+    gh.href=R.github;
+    gh.target="_blank";
+    gh.rel="noopener noreferrer";
+    cta.appendChild(gh);
+  }
+  var prb=ce("button","btn g",ic("printer")+" 打印简历");
+  prb.onclick=function(){window.print()};
+  cta.appendChild(prb);
+  left.appendChild(cta);
+  left.appendChild(ce("p","h-st",ic("pin")+" "+R.loc+" · 期待认识志同道合的伙伴与导师"));
+  var chips=ce("div","chips");
+  chips.style.marginTop="16px";
+  var i;
+  for(i=0;i<R.keywords.length;i++){chips.appendChild(ce("span","chip",R.keywords[i]))}
+  left.appendChild(chips);
+
+  var right=ce("div","h-right");
+  var term=ce("div","term");
+  term.innerHTML='<div class="t-bar"><span class="td r"></span><span class="td y"></span><span class="td g"></span><span class="t-title">yanpingping — hello.sh</span></div><div class="t-body" id="tBody"></div>';
+  right.appendChild(term);
+
+  var card=ce("div","idcard");
+  card.innerHTML=
+    '<div class="id-top">'+
+      '<svg class="id-crest" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="none" stroke="#e9c46a" stroke-width="2"/><circle cx="24" cy="24" r="17" fill="none" stroke="#e9c46a" stroke-width="1"/><text x="24" y="22" text-anchor="middle" font-size="9" fill="#e9c46a" font-family="Georgia,serif">NJAU</text><text x="24" y="33" text-anchor="middle" font-size="7" fill="#cfe8da" font-family="Georgia,serif">1902</text></svg>'+
+      '<span class="id-uni"><b>南京农业大学</b><i>NANJING AGRICULTURAL UNIVERSITY</i></span>'+
+    '</div>'+
+    '<div class="id-chip"></div>'+
+    '<div class="id-row">'+
+      '<span class="id-f"><i>姓名 / NAME</i><b>闫平平</b></span>'+
+      '<span class="id-f"><i>学院 / COLLEGE</i><b>计算机科学与技术</b></span>'+
+    '</div>'+
+    '<div class="id-row">'+
+      '<span class="id-f"><i>年级 / GRADE</i><b>2026 级 · 大一</b></span>'+
+      '<span class="id-f"><i>学制 / DURATION</i><b>四年制本科</b></span>'+
+    '</div>'+
+    '<div class="id-led"><span></span>注册 · 在读</div>'+
+    '<div class="id-bot"><div class="id-bar"></div><span class="id-code">YAN PINGPING · CS@NJAU</span></div>';
+  right.appendChild(card);
+
+  g.appendChild(left);
+  g.appendChild(right);
+  typeTerm($("tBody"),term);
+})();
+
+/* 终端逐行输出（安全的定时器写法） */
+function typeTerm(body,term){
+  var lines=[
+    '<span class="tu">yanpingping@nju</span>:<span class="tdim">~</span>$ <span class="tp">whoami</span>',
+    '<span class="tc">闫平平 — 2026 级 · 计算机科学与技术</span>',
+    '<span class="tu">yanpingping@nju</span>:<span class="tdim">~</span>$ <span class="tp">cat goals.txt</span>',
+    '<span class="ts">"打好编程基础 → 参与项目竞赛 → 独立开发产品"</span>',
+    '<span class="tu">yanpingping@nju</span>:<span class="tdim">~</span>$ <span class="tp">status --now</span>',
+    '<span class="tok">●</span> <span class="tc">'+R.status+'</span>'
+  ];
+  var i=0;
+  if(rm || !body){
+    if(body){
+      for(i=0;i<lines.length;i++){body.appendChild(ce("div","tl show",lines[i]))}
+    }
+    return;
+  }
+  term.className+=" typing";
+  var timer=window.setInterval(function(){
+    if(i>=lines.length){
+      window.clearInterval(timer);
+      term.className=term.className.replace(" typing","");
+      return;
+    }
+    body.appendChild(ce("div","tl show",lines[i]));
+    i++;
+  },420);
+}
+
+/* ================= 亮点 ================= */
+(function(){
+  var w=$("hlWrap");
+  var cert=ce("div","cert rv");
+  cert.innerHTML=
+    '<svg class="seal" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="28" r="20" fill="none" stroke="var(--acc)" stroke-width="2.5"/><circle cx="32" cy="28" r="14" fill="none" stroke="var(--acc)" stroke-width="1" stroke-dasharray="3 3"/><path d="m26 28 4.5 4.5L39 23" fill="none" stroke="var(--acc)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M25 44 22 56l10-5 10 5-3-12" fill="none" stroke="var(--acc)" stroke-width="2.5" stroke-linejoin="round"/></svg>'+
+    '<div><div class="cert-t">'+R.cert.title+'</div><div class="cert-d">'+R.cert.desc+'</div></div>'+
+    '<div class="cert-r"><span class="tchip">'+R.cert.year+'</span><div style="font-size:11px;color:var(--muted);margin-top:6px;font-family:var(--fm)">'+R.cert.tag+'</div></div>';
+  w.appendChild(cert);
+
+  var strip=ce("div","hl-strip rv");
+  var i,h,d;
+  for(i=0;i<R.hls.length;i++){
+    h=R.hls[i];
+    d=ce("div","hl-item");
+    d.innerHTML='<div class="hl-num">'+h.n+'</div><div class="hl-t">'+h.t+'</div><div class="hl-d">'+h.d+'</div>';
+    strip.appendChild(d);
+  }
+  w.appendChild(strip);
+})();
+
+/* ================= 经历 ================= */
+(function(){
+  var w=$("expWrap");
+  var tl=ce("div","tline");
+  var i,j,item,ti,head,lt,ul;
+  for(i=0;i<R.exp.length;i++){
+    item=R.exp[i];
+    ti=ce("div",item.future?"ti future":"ti");
+    head=ce("div","ti-h");
+    lt=ce("div");
+    lt.innerHTML='<h3 class="ti-r"'+(item.future?' style="color:var(--muted)"':'')+'>'+item.role+'</h3><p class="ti-o">'+item.org+'</p>';
+    head.appendChild(lt);
+    head.appendChild(ce("span","tchip",item.period));
+    ti.appendChild(head);
+    ul=ce("ul","ti-p");
+    for(j=0;j<item.points.length;j++){
+      ul.appendChild(ce("li",null,item.points[j]));
+    }
+    ti.appendChild(ul);
+    tl.appendChild(ti);
+  }
+  w.appendChild(tl);
+})();
+
+/* ================= 技能 ================= */
+(function(){
+  var g=$("skGrid");
+  var i,j,sg,c,h,it,d;
+  for(i=0;i<R.skills.length;i++){
+    sg=R.skills[i];
+    c=ce("div","card sk-g rv");
+    c.style.transitionDelay=(i*80)+"ms";
+    h=ce("h3",null,ic(sg.icon)+" "+sg.group);
+    c.appendChild(h);
+    for(j=0;j<sg.items.length;j++){
+      it=sg.items[j];
+      d=ce("div","sk-i");
+      d.innerHTML='<div class="sk-t"><span class="sk-n">'+it.name+'</span><span class="sk-pct">'+it.pct+'%'+(it.learn?' · 加载中':'')+'</span></div><div class="bar"><i class="'+(it.learn?'learn':'')+'" style="--w:'+it.pct+'%"></i></div>';
+      c.appendChild(d);
+    }
+    g.appendChild(c);
+  }
+})();
+
+/* ================= 教育 ================= */
+(function(){
+  var g=$("eduG");
+  var c1=ce("div","card rv");
+  c1.innerHTML='<h3 class="edu-s">'+ic("book")+" "+R.edu.school+'</h3><p class="edu-m">'+R.edu.major+'</p><span class="tchip">'+R.edu.period+'</span>';
+  var b1=ce("div","edu-b");
+  var chips="",i;
+  for(i=0;i<R.edu.courses.length;i++){chips+='<span class="chip">'+R.edu.courses[i]+'</span>'}
+  b1.innerHTML='<h4>核心课程（即将系统学习）</h4><div class="chips">'+chips+'</div>';
+  c1.appendChild(b1);
+  c1.appendChild(ce("div","edu-b",'<h4>学业规划</h4><p style="font-size:13px;color:var(--ink2);line-height:1.85">'+R.edu.note+'</p>'));
+  g.appendChild(c1);
+
+  var c2=ce("div","card rv");
+  c2.style.transitionDelay="90ms";
+  c2.innerHTML='<h3 class="edu-s" style="font-size:1.1rem">'+ic("award")+" 证书</h3>";
+  var j,a,r;
+  for(j=0;j<R.awards.length;j++){
+    a=R.awards[j];
+    r=ce("div","aw-r");
+    r.innerHTML='<span class="aw-y">'+a.year+'</span>'+ic("award")+'<span><span class="aw-n">'+a.name+'</span><div class="aw-d">'+a.note+'</div></span>';
+    c2.appendChild(r);
+  }
+  g.appendChild(c2);
+
+  /* 证书照片画廊 */
+  if(R.certPhotos && R.certPhotos.length){
+    var c3=ce("div","card rv");
+    c3.style.transitionDelay="140ms";
+    c3.innerHTML='<h3 class="edu-s" style="font-size:1.1rem;margin-bottom:6px">'+ic("award")+' 证书展示</h3>';
+    var gw=ce("div","cert-gallery-wrap");
+    var gl=ce("div","cert-gallery");
+    var VISIBLE=4;
+    var i2,cp,dv;
+    for(i2=0;i2<R.certPhotos.length;i2++){
+      cp=R.certPhotos[i2];
+      dv=ce("div","cert-item");
+      if(i2>=VISIBLE){dv.className+=" hidden-cert"}
+      dv.setAttribute("data-cert-idx",i2);
+      dv.innerHTML='<img src="'+cp.src+'" alt="'+cp.label+'" loading="lazy"><span class="cert-label">'+cp.label+'</span>';
+      dv.onclick=function(e){openLightbox(parseInt(this.getAttribute("data-cert-idx")))};
+      gl.appendChild(dv);
+    }
+    gw.appendChild(gl);
+    if(R.certPhotos.length>VISIBLE){
+      var tw=ce("div","cert-toggle-wrap");
+      var tb=ce("button","cert-toggle-btn");
+      tb.innerHTML=ic("up")+' 查看全部（共 '+R.certPhotos.length+' 张）';
+      tb.setAttribute("aria-expanded","false");
+      tb.onclick=function(){
+        var expanded=this.getAttribute("aria-expanded")==="true";
+        var items=gl.querySelectorAll(".cert-item");
+        var j3;
+        if(expanded){
+          for(j3=VISIBLE;j3<items.length;j3++){items[j3].className+=" hidden-cert"}
+          this.className=this.className.replace(" expanded","");
+          this.innerHTML=ic("up")+' 查看全部（共 '+R.certPhotos.length+' 张）';
+          this.setAttribute("aria-expanded","false");
+        }else{
+          for(j3=VISIBLE;j3<items.length;j3++){items[j3].className=items[j3].className.replace(" hidden-cert","")}
+          this.className+=" expanded";
+          this.innerHTML=ic("up")+' 收起';
+          this.setAttribute("aria-expanded","true");
+        }
+      };
+      tw.appendChild(tb);
+      gw.appendChild(tw);
+    }
+    c3.appendChild(gw);
+    g.appendChild(c3);
+  }
+})();
+
+/* ================= 灯箱 ================= */
+var lbCurIdx=0;
+function openLightbox(idx){
+  if(!R.certPhotos||!R.certPhotos.length)return;
+  lbCurIdx=idx;
+  var lb=$("lightbox");
+  if(!lb){
+    lb=ce("div","lightbox");
+    lb.id="lightbox";
+    lb.innerHTML='<button class="lightbox-close" aria-label="关闭">&times;</button><button class="lightbox-prev" aria-label="上一张">&lsaquo;</button><img src="" alt=""><button class="lightbox-next" aria-label="下一张">&rsaquo;</button>';
+    document.body.appendChild(lb);
+    lb.querySelector(".lightbox-close").onclick=function(){lb.className="lightbox"};
+    lb.querySelector(".lightbox-prev").onclick=function(){openLightbox((lbCurIdx-1+R.certPhotos.length)%R.certPhotos.length)};
+    lb.querySelector(".lightbox-next").onclick=function(){openLightbox((lbCurIdx+1)%R.certPhotos.length)};
+    lb.addEventListener("click",function(e){if(e.target===lb){lb.className="lightbox"}});
+    document.addEventListener("keydown",function(e){
+      if(lb.className.indexOf("show")<0)return;
+      if(e.key==="Escape"){lb.className="lightbox"}
+      if(e.key==="ArrowLeft"){openLightbox((lbCurIdx-1+R.certPhotos.length)%R.certPhotos.length)}
+      if(e.key==="ArrowRight"){openLightbox((lbCurIdx+1)%R.certPhotos.length)}
+    });
+  }
+  lb.querySelector("img").src=R.certPhotos[idx].src;
+  lb.querySelector("img").alt=R.certPhotos[idx].label;
+  lb.className="lightbox show";
+}
+
+/* ================= 游戏：坦克大战 YPP 版 ================= */
+(function(){
+  var w=$("gameWrap");
+  if(!w)return;
+  var card=ce("div","game-card rv");
+  var intro=ce("div","game-intro",ic("spark")+" 这是我用 <b>HTML5 Canvas + JavaScript</b> 从零实现的经典坦克大战：包含 <b>4大关卡</b>（难度递增 / 波次系统 / BOSS战）、<b>坦克皮肤自定义</b>（部件自由组合+通关解锁）、道具系统、火力升级与 Web Audio 合成音效。点击下方预览画面即可全屏畅玩！");
+  card.appendChild(intro);
+
+  /* 预览区：军绿星空 */
+  var preview=ce("div","game-preview tank");
+  var stars='';
+  for(var si=0;si<22;si++){
+    var sx=Math.random()*100, sy=Math.random()*100;
+    var ss=(Math.random()*2.5+1).toFixed(1), sd=(Math.random()*2+1).toFixed(1);
+    stars+='<span class="game-preview-star" style="left:'+sx+'%;top:'+sy+'%;width:'+ss+'px;height:'+ss+'px;animation-delay:'+sd+'s"></span>';
+  }
+  preview.innerHTML=
+    stars+
+    '<div class="game-preview-inner">'+
+      '<span class="game-preview-title">坦克大战 YPP</span>'+
+      '<span class="game-preview-sub">TANK BATTLE · HTML5 CANVAS</span>'+
+    '</div>'+
+    '<div class="game-preview-overlay"></div>'+
+    '<button class="game-preview-btn">'+ic("play")+' 点击开始游戏</button>';
+  card.appendChild(preview);
+
+  /* 操作提示 */
+  var ctrls=ce("div","game-controls");
+  ctrls.innerHTML=
+    '<span class="game-tip">WASD / 方向键 移动</span>'+
+    '<span class="game-tip">空格 射击</span>'+
+    '<span class="game-tip">回车 开始 / 确认</span>'+
+    '<span class="game-tip">P 暂停</span>'+
+    '<span class="game-tip">M 静音</span>'+
+    '<span class="game-tip">支持触屏</span>';
+  card.appendChild(ctrls);
+
+  /* 全屏游戏模态框（独立于星际战机的模态框） */
+  var tkModal=null, tkIframe=null, tkHint=null;
+  function openTank(){
+    if(!tkModal){
+      tkModal=ce("div","game-modal");
+      tkModal.id="tankModal";
+      var inner=ce("div","game-modal-inner");
+      tkIframe=ce("iframe");
+      tkIframe.src="tank-battle.html";
+      tkIframe.title="坦克大战 YPP";
+      tkIframe.setAttribute("allow","autoplay");
+      inner.appendChild(tkIframe);
+      tkHint=ce("div","game-focus-hint");
+      tkHint.innerHTML='<span>'+ic("play")+' 点击画面开始操作</span>';
+      inner.appendChild(tkHint);
+      tkHint.onclick=function(e){
+        e.stopPropagation();
+        try{tkIframe.contentWindow.focus()}catch(err){}
+        tkHint.className="game-focus-hint fading";
+      };
+      tkIframe.onload=function(){
+        try{tkIframe.contentWindow.focus()}catch(err){}
+      };
+      var closeBtn=ce("button","game-modal-close",ic("close")+' 关闭');
+      tkModal.appendChild(inner);
+      tkModal.appendChild(closeBtn);
+      closeBtn.onclick=closeTank;
+      tkModal.addEventListener("click",function(e){if(e.target===tkModal)closeTank()});
+      document.body.appendChild(tkModal);
+    }else{
+      tkHint.className="game-focus-hint";
+    }
+    tkModal.className="game-modal show";
+    setTimeout(function(){try{tkIframe.contentWindow.focus()}catch(err){}},500);
+  }
+  function closeTank(){
+    if(!tkModal)return;
+    tkModal.className="game-modal";
+    if(tkIframe){tkIframe.src=tkIframe.src} /* 重载以停止游戏循环 */
+  }
+  document.addEventListener("keydown",function(e){
+    if(e.key==="Escape"&&tkModal&&tkModal.className.indexOf("show")>=0)closeTank();
+  });
+  preview.onclick=function(){openTank()};
+  w.appendChild(card);
+})();
+
+/* ================= 游戏 ================= */
+(function(){
+  var w=$("gameWrap");
+  if(!w)return; // 该区块已改为内嵌 iframe 展示，此历史构建脚本不再使用
+  var card=ce("div","game-card rv");
+  var intro=ce("div","game-intro",ic("spark")+" 这是我用 <b>HTML5 Canvas + JavaScript</b> 独立开发的星际战机射击游戏，支持键盘/鼠标/触屏操作，包含多种武器、BOSS战和道具系统。点击下方预览画面即可全屏畅玩！");
+  card.appendChild(intro);
+
+  /* 预览区 */
+  var preview=ce("div","game-preview");
+  // 生成星星
+  var starCount=28;
+  var stars='';
+  for(var si=0;si<starCount;si++){
+    var sx=Math.random()*100; var sy=Math.random()*100;
+    var ss=(Math.random()*2.5+1).toFixed(1);
+    var sd=(Math.random()*2+1).toFixed(1);
+    stars+='<span class="game-preview-star" style="left:'+sx+'%;top:'+sy+'%;width:'+ss+'px;height:'+ss+'px;animation-delay:'+sd+'s"></span>';
+  }
+  preview.innerHTML=
+    stars+
+    '<div class="game-preview-inner">'+
+      '<span class="game-preview-title">星际战机</span>'+
+      '<span class="game-preview-sub">STAR FIGHTER</span>'+
+    '</div>'+
+    '<div class="game-preview-overlay"></div>'+
+    '<button class="game-preview-btn">'+ic("play")+' 点击开始游戏</button>';
+  card.appendChild(preview);
+  w.appendChild(card);
+
+  /* 操作提示 */
+  var ctrls=ce("div","game-controls");
+  ctrls.innerHTML=
+    '<span class="game-tip">WASD / 方向键 移动</span>'+
+    '<span class="game-tip">空格 射击</span>'+
+    '<span class="game-tip">Q 必杀技</span>'+
+    '<span class="game-tip">P / Esc 暂停</span>'+
+    '<span class="game-tip">支持鼠标/触屏</span>';
+  card.appendChild(ctrls);
+
+  /* 全屏游戏模态框 */
+  var gameModal=null;
+  var gameIframe=null;
+  var focusHint=null;
+  var LOG_PREFIX="[GameModal]";
+
+  function openGame(){
+    console.log(LOG_PREFIX,"openGame() 触发",new Date().toISOString());
+    console.log(LOG_PREFIX,"  document.activeElement:",document.activeElement&&document.activeElement.tagName);
+    console.log(LOG_PREFIX,"  gameModal 已存在:",!!gameModal);
+
+    if(!gameModal){
+      console.log(LOG_PREFIX,"  首次创建模态框 DOM ...");
+      gameModal=ce("div","game-modal");
+      gameModal.id="gameModal";
+      var inner=ce("div","game-modal-inner");
+      gameIframe=ce("iframe");
+      gameIframe.src="index.html";
+      gameIframe.title="星际战机";
+      gameIframe.setAttribute("allow","autoplay");
+      console.log(LOG_PREFIX,"  iframe.src 已设置:",gameIframe.src);
+      inner.appendChild(gameIframe);
+      console.log(LOG_PREFIX,"  iframe 已挂载到 inner");
+
+      /* 点击聚焦提示层 */
+      focusHint=ce("div","game-focus-hint");
+      focusHint.innerHTML='<span>'+ic("play")+' 点击画面开始操作</span>';
+      inner.appendChild(focusHint);
+      console.log(LOG_PREFIX,"  focusHint 已创建并挂载");
+
+      /* 点击提示层时聚焦 iframe */
+      focusHint.onclick=function(e){
+        console.log(LOG_PREFIX,"  focusHint.onclick 触发");
+        e.stopPropagation();
+        try{
+          if(gameIframe&&gameIframe.contentWindow){
+            gameIframe.contentWindow.focus();
+            console.log(LOG_PREFIX,"  focusHint → contentWindow.focus() 成功");
+            console.log(LOG_PREFIX,"  当前 activeElement:",document.activeElement&&document.activeElement.tagName);
+          }else{
+            console.warn(LOG_PREFIX,"  focusHint → gameIframe 或 contentWindow 不存在");
+          }
+        }catch(err){
+          console.error(LOG_PREFIX,"  focusHint → contentWindow.focus() 失败:",err.message);
+        }
+        focusHint.className="game-focus-hint fading";
+        console.log(LOG_PREFIX,"  focusHint 已添加 fading 类，准备渐隐");
+      };
+
+      /* iframe 加载完成时自动聚焦 */
+      gameIframe.onload=function(){
+        console.log(LOG_PREFIX,"  iframe.onload 触发");
+        try{
+          if(gameIframe.contentWindow){
+            gameIframe.contentWindow.focus();
+            console.log(LOG_PREFIX,"  iframe.onload → contentWindow.focus() 成功");
+          }
+        }catch(err){
+          console.error(LOG_PREFIX,"  iframe.onload → contentWindow.focus() 失败:",err.message);
+        }
+      };
+
+      var closeBtn=ce("button","game-modal-close",ic("close")+' 关闭');
+      gameModal.appendChild(inner);
+      gameModal.appendChild(closeBtn);
+      console.log(LOG_PREFIX,"  模态框 DOM 完整，已挂载 closeBtn");
+
+      closeBtn.onclick=function(){
+        console.log(LOG_PREFIX,"  closeBtn.onclick 触发 → closeGame()");
+        closeGame();
+      };
+      gameModal.addEventListener("click",function(e){
+        if(e.target===gameModal){
+          console.log(LOG_PREFIX,"  遮罩点击 → closeGame()");
+          closeGame();
+        }
+      });
+      document.body.appendChild(gameModal);
+      console.log(LOG_PREFIX,"  模态框已挂载到 document.body");
+    } else {
+      console.log(LOG_PREFIX,"  复用已有模态框，重置 focusHint");
+      if(focusHint){focusHint.className="game-focus-hint"}
+    }
+
+    console.log(LOG_PREFIX,"  添加 .show 类 → 触发 CSS 渐入动画");
+    gameModal.className="game-modal show";
+
+    /* 延迟聚焦 */
+    console.log(LOG_PREFIX,"  启动 500ms 延迟聚焦定时器 ...");
+    setTimeout(function(){
+      console.log(LOG_PREFIX,"  延迟聚焦定时器触发 (500ms)");
+      try{
+        if(gameIframe&&gameIframe.contentWindow){
+          gameIframe.contentWindow.focus();
+          console.log(LOG_PREFIX,"  延迟聚焦 → contentWindow.focus() 成功");
+          console.log(LOG_PREFIX,"  当前 activeElement:",document.activeElement&&document.activeElement.tagName);
+        }else{
+          console.warn(LOG_PREFIX,"  延迟聚焦 → gameIframe/contentWindow 不可用");
+        }
+      }catch(err){
+        console.error(LOG_PREFIX,"  延迟聚焦 → contentWindow.focus() 失败:",err.message);
+      }
+    },500);
+
+    console.log(LOG_PREFIX,"openGame() 完成，共耗时:",performance.now().toFixed(0)+"ms");
+  }
+
+  function closeGame(){
+    console.log(LOG_PREFIX,"closeGame() 触发",new Date().toISOString());
+    console.log(LOG_PREFIX,"  gameModal 存在:",!!gameModal);
+    if(gameModal){
+      console.log(LOG_PREFIX,"  移除 .show 类 → 触发 CSS 渐出动画");
+      gameModal.className="game-modal";
+      if(gameIframe){
+        var prevSrc=gameIframe.src;
+        console.log(LOG_PREFIX,"  重新加载 iframe 以停止游戏循环，src:",prevSrc);
+        gameIframe.src=gameIframe.src;
+      }
+      console.log(LOG_PREFIX,"closeGame() 完成");
+    }else{
+      console.warn(LOG_PREFIX,"closeGame() 跳过：gameModal 为空");
+    }
+  }
+
+  preview.onclick=function(){
+    console.log(LOG_PREFIX,"preview.onclick 触发 → openGame()");
+    openGame();
+  };
+})();
+
+/* ================= 关于我 ================= */
+(function(){
+  var w=$("abW");
+  w.appendChild(ce("div","ab-m","「"));
+  var l=ce("ul","ab-l");
+  var i;
+  for(i=0;i<R.about.length;i++){
+    l.appendChild(ce("li",null,ic("spark")+"<span>"+R.about[i]+"</span>"));
+  }
+  w.appendChild(l);
+})();
+
+/* ================= 滚动进度条 ================= */
+(function(){
+  var bar=$("progBar");
+  function upd(){
+    var h=document.documentElement;
+    var max=h.scrollHeight-h.clientHeight;
+    var p=max>0?Math.min(100,h.scrollTop/max*100):0;
+    bar.style.width=p+"%";
+  }
+  window.addEventListener("scroll",upd,{passive:true});
+  window.addEventListener("resize",upd);
+  upd();
+})();
+
+/* ================= 复制邮箱 ================= */
+var tt=null;
+function showToast(m){
+  var t=$("toast");
+  t.innerHTML=ic("check")+" "+m;
+  t.className="toast show";
+  if(tt){window.clearTimeout(tt)}
+  tt=window.setTimeout(function(){t.className="toast"},2200);
+}
+function copyText(t){
+  var ok=false,ta;
+  try{
+    ta=document.createElement("textarea");
+    ta.value=t;
+    ta.setAttribute("readonly","");
+    ta.style.position="fixed";
+    ta.style.left="-9999px";
+    document.body.appendChild(ta);
+    ta.select();
+    ok=document.execCommand("copy");
+    document.body.removeChild(ta);
+  }catch(e){ok=false}
+  if(!ok && navigator.clipboard && navigator.clipboard.writeText){
+    try{navigator.clipboard.writeText(t);ok=true}catch(e2){}
+  }
+  return ok;
+}
+function copyEmail(btn){
+  var em=email();
+  copyText(em);
+  var old=btn.innerHTML;
+  btn.innerHTML=ic("check")+" 已复制";
+  window.setTimeout(function(){btn.innerHTML=old},1600);
+  showToast("邮箱已复制："+em);
+}
+
+/* ================= 动效 ================= */
+(function(){
+  var ts=document.querySelectorAll(".rv"),i;
+  if(rm || !("IntersectionObserver" in window)){
+    for(i=0;i<ts.length;i++){ts[i].className+=" in"}
+    return;
+  }
+  var io=new IntersectionObserver(function(es){
+    var j;
+    for(j=0;j<es.length;j++){
+      if(es[j].isIntersecting){
+        es[j].target.className+=" in";
+        io.unobserve(es[j].target);
+      }
+    }
+  },{threshold:0.12});
+  for(i=0;i<ts.length;i++){io.observe(ts[i])}
+})();
+
+(function(){
+  if(!("IntersectionObserver" in window)){return}
+  var ls=document.querySelectorAll(".nl[data-spy]");
+  if(!ls.length){return}
+  var io=new IntersectionObserver(function(es){
+    var j,k;
+    for(j=0;j<es.length;j++){
+      if(es[j].isIntersecting){
+        for(k=0;k<ls.length;k++){ls[k].className=ls[k].className.replace(" on","")}
+        for(k=0;k<ls.length;k++){
+          if(ls[k].getAttribute("data-spy")===es[j].target.id){ls[k].className+=" on"}
+        }
+      }
+    }
+  },{rootMargin:"-40% 0px -55% 0px"});
+  var i,s;
+  for(i=0;i<NAV.length;i++){
+    s=document.getElementById(NAV[i].id);
+    if(s){io.observe(s)}
+  }
+})();
+
+(function(){
+  var b=$("btop");
+  b.innerHTML=ic("up");
+  b.onclick=function(){window.scrollTo({top:0,behavior:rm?"auto":"smooth"})};
+  window.addEventListener("scroll",function(){
+    if(window.scrollY>500){b.className="bt show"}else{b.className="bt"}
+  },false);
+})();
+
+/* ================= 页脚 ================= */
+(function(){
+  var d=new Date();
+  function p(n){return (n<10?"0":"")+n}
+  $("yr").innerHTML=String(d.getFullYear());
+  $("upd").innerHTML=d.getFullYear()+"."+p(d.getMonth()+1)+"."+p(d.getDate());
+})();
+
+}catch(err){
+  var b=document.getElementById("errBox");
+  if(b){
+    b.style.display="block";
+    b.innerHTML="页面渲染失败："+(err && err.message ? err.message : err)+"。请重新完整复制代码，并以 UTF-8 编码保存后用 Chrome / Edge 打开。";
+  }
+}
+})();
+</script>
+</body>
+</html>

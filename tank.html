@@ -1,0 +1,1582 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CYBER_TANK // EVOLUTION</title>
+    
+    <!-- 引入资源 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700;900&family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        :root {
+            --neon-cyan: #00f3ff;
+            --neon-pink: #ff00ff;
+            --neon-yellow: #fcee0a;
+            --neon-green: #00ff66;
+            --dark-bg: #050505;
+            --panel-bg: rgba(5, 5, 10, 0.85);
+            --dirt-color: #8B4513;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--dark-bg);
+            color: #fff;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            touch-action: none;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .font-orbitron { font-family: 'Orbitron', sans-serif; }
+        .font-zhimang { font-family: 'Zhi Mang Xing', cursive; }
+        
+        .glitch-text {
+            position: relative;
+            color: white;
+            text-shadow: 2px 0 var(--neon-cyan), -2px 0 var(--neon-pink);
+            animation: glitch-anim-1 2.5s infinite linear alternate-reverse;
+        }
+        @keyframes glitch-anim-1 {
+            0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 1px); }
+            20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -1px); }
+            40% { clip-path: inset(40% 0 50% 0); transform: translate(-2px, 2px); }
+            60% { clip-path: inset(80% 0 5% 0); transform: translate(2px, -2px); }
+            80% { clip-path: inset(10% 0 70% 0); transform: translate(-1px, 1px); }
+            100% { clip-path: inset(30% 0 40% 0); transform: translate(1px, -1px); }
+        }
+
+        .cy-btn {
+            position: relative;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            text-transform: uppercase;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+            transition: all 0.3s ease;
+            box-shadow: inset 0 0 10px rgba(0, 243, 255, 0.2);
+            cursor: pointer;
+        }
+        .cy-btn:hover {
+            background: var(--neon-cyan); color: #000;
+            box-shadow: 0 0 15px var(--neon-cyan), inset 0 0 20px rgba(0,0,0,0.5);
+        }
+        .cy-btn.pink {
+            border-color: var(--neon-pink); color: var(--neon-pink);
+            box-shadow: inset 0 0 10px rgba(255, 0, 255, 0.2);
+        }
+        .cy-btn.pink:hover {
+            background: var(--neon-pink); color: #fff;
+            box-shadow: 0 0 15px var(--neon-pink);
+        }
+        .cy-btn.yellow {
+            border-color: var(--neon-yellow); color: var(--neon-yellow);
+            box-shadow: inset 0 0 10px rgba(252, 238, 10, 0.2);
+        }
+        .cy-btn.yellow:hover {
+            background: var(--neon-yellow); color: #000;
+            box-shadow: 0 0 15px var(--neon-yellow);
+        }
+        .cy-btn:disabled {
+            border-color: #555; color: #555; box-shadow: none; cursor: not-allowed;
+            background: rgba(0,0,0,0.8);
+        }
+        .cy-btn:disabled:hover { background: rgba(0,0,0,0.8); color: #555; }
+
+        .cy-input {
+            background: rgba(0, 243, 255, 0.05);
+            border: 1px solid var(--neon-cyan);
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            padding: 10px 15px;
+            outline: none;
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+            box-shadow: inset 0 0 5px rgba(0, 243, 255, 0.2);
+            transition: all 0.3s;
+        }
+        .cy-input:focus {
+            background: rgba(0, 243, 255, 0.1);
+            box-shadow: inset 0 0 15px rgba(0, 243, 255, 0.4), 0 0 10px var(--neon-cyan);
+        }
+
+        .modal-overlay {
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 100;
+        }
+        .cy-modal {
+            background: rgba(10, 10, 10, 0.95);
+            border: 1px solid var(--neon-cyan);
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.15);
+            clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
+        }
+
+        #topSettingsPanel {
+            background: var(--panel-bg);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--neon-cyan);
+            box-shadow: 0 5px 25px rgba(0, 243, 255, 0.15);
+            transform: translateY(-100%);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        #topSettingsPanel.open { transform: translateY(0); }
+        
+        .panel-handle {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--panel-bg);
+            border: 2px solid var(--neon-cyan);
+            border-top: none;
+            clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%);
+            width: 120px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            color: var(--neon-cyan);
+            transition: all 0.3s;
+        }
+        .panel-handle:hover {
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(0, 243, 255, 0.4);
+        }
+
+        input[type=range].cy-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range].cy-slider:focus { outline: none; }
+        input[type=range].cy-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px; width: 16px;
+            background: var(--neon-cyan);
+            border-radius: 50%;
+            cursor: pointer;
+            margin-top: -6px;
+            box-shadow: 0 0 10px var(--neon-cyan);
+            transition: transform 0.1s;
+        }
+        input[type=range].cy-slider::-webkit-slider-thumb:hover { transform: scale(1.2); }
+        input[type=range].cy-slider.pink::-webkit-slider-thumb {
+            background: var(--neon-pink);
+            box-shadow: 0 0 10px var(--neon-pink);
+        }
+        input[type=range].cy-slider::-webkit-slider-runnable-track {
+            width: 100%; height: 4px;
+            cursor: pointer;
+            background: rgba(0, 243, 255, 0.2);
+            border-radius: 2px;
+        }
+        input[type=range].cy-slider.pink::-webkit-slider-runnable-track {
+            background: rgba(255, 0, 255, 0.2);
+        }
+
+        .scanlines {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.3;
+        }
+
+        /* 虚拟摇杆 */
+        .joystick-zone {
+            position: fixed; bottom: 30px; width: 140px; height: 140px;
+            border-radius: 50%; background: rgba(0, 243, 255, 0.05);
+            border: 2px dashed rgba(0, 243, 255, 0.3); display: none; z-index: 40;
+        }
+        .joystick-knob {
+            position: absolute; top: 50%; left: 50%; width: 60px; height: 60px;
+            border-radius: 50%; background: rgba(0, 243, 255, 0.5);
+            transform: translate(-50%, -50%); box-shadow: 0 0 20px var(--neon-cyan); pointer-events: none;
+            border: 2px solid #fff;
+        }
+        #joystickLeft { left: 30px; }
+        #joystickRight { right: 30px; border-color: rgba(255, 0, 255, 0.3); background: rgba(255, 0, 255, 0.05); }
+        #joystickRight .joystick-knob { background: rgba(255, 0, 255, 0.5); box-shadow: 0 0 20px var(--neon-pink); }
+
+        #gameCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+        
+        .floating-dmg {
+            position: absolute; color: #ff0055; font-family: 'Orbitron', sans-serif;
+            font-weight: bold; font-size: 20px; text-shadow: 0 0 10px #ff0055; pointer-events: none;
+            animation: floatUp 1s forwards; z-index: 10;
+        }
+        @keyframes floatUp {
+            0% { opacity: 1; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-50px) scale(1.5); }
+        }
+
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: var(--neon-cyan); border-radius: 3px; }
+
+        /* 浪尖儿 特效字 */
+        .langjianer-bg {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            font-size: 15vw; opacity: 0.05; color: var(--neon-cyan); white-space: nowrap;
+            pointer-events: none; z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部全局下拉设置面板 -->
+    <div id="topSettingsPanel" class="fixed top-0 left-0 w-full z-[85] pt-4 pb-6 px-6">
+        <div class="max-w-6xl mx-auto flex flex-col gap-4">
+            <div class="flex justify-between items-center border-b border-gray-800 pb-2">
+                <h2 class="text-2xl font-orbitron font-bold text-white tracking-widest"><span class="text-cyan-400">SYS</span>.CTRL</h2>
+                <div class="text-xs text-cyan-500 font-mono" id="systemClock">SYS.TIME: 00:00:00</div>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <button id="btnSound" class="cy-btn py-2 px-4 text-sm flex flex-col items-center gap-1 group">
+                    <i class="fa-solid fa-volume-high text-lg group-hover:animate-pulse"></i>
+                    <span>音效: <span id="soundStatus" class="text-white">ON</span></span>
+                </button>
+                <button id="btnTopPause" class="cy-btn yellow py-2 px-4 text-sm flex flex-col items-center gap-1 group">
+                    <i id="topPauseIcon" class="fa-solid fa-pause text-lg"></i>
+                    <span id="topPauseText">暂停任务</span>
+                </button>
+                <button id="btnTopLogout" class="cy-btn pink py-2 px-4 text-sm flex flex-col items-center gap-1 group">
+                    <i class="fa-solid fa-right-from-bracket text-lg"></i>
+                    <span>切断连接</span>
+                </button>
+                <button id="btnTopHome" class="cy-btn py-2 px-4 text-sm flex flex-col items-center gap-1 group">
+                    <i class="fa-solid fa-house-chimney text-lg"></i>
+                    <span>返回主脑</span>
+                </button>
+            </div>
+
+            <!-- HP Settings Section -->
+            <div class="mt-2 pt-3 border-t border-gray-800">
+                <p class="text-xs text-gray-500 font-mono mb-2">// 战斗单元装甲参数覆写 (下一台机体即时生效)</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 px-2">
+                    <div class="flex items-center gap-4">
+                        <span class="text-cyan-400 font-mono text-sm font-bold min-w-[70px]">我方生命</span>
+                        <input type="range" id="playerHpSlider" min="100" max="1000" step="50" value="500" class="cy-slider">
+                        <span id="playerHpDisplay" class="text-white font-orbitron text-lg min-w-[40px] text-right">500</span>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span class="text-pink-500 font-mono text-sm font-bold min-w-[70px]">敌方基础</span>
+                        <input type="range" id="enemyHpSlider" min="5" max="100" step="5" value="20" class="cy-slider pink">
+                        <span id="enemyHpDisplay" class="text-white font-orbitron text-lg min-w-[40px] text-right">20</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="togglePanelBtn" class="panel-handle">
+            <i class="fa-solid fa-chevron-down text-xl" id="toggleIcon"></i>
+        </div>
+    </div>
+
+    <!-- 游戏玩法引导层 (登录后显示) -->
+    <div id="introScreen" class="fixed inset-0 z-[75] flex flex-col items-center justify-center bg-black/95 backdrop-blur-md hidden">
+        <div class="cy-modal p-8 w-full max-w-2xl mx-4 relative flex flex-col">
+            <h2 class="text-3xl font-orbitron text-cyan-400 border-b border-cyan-900 pb-3 mb-6 text-center">系统操作指南 // MANUAL</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-gray-300 font-mono text-sm">
+                <div>
+                    <h3 class="text-pink-500 font-bold mb-3 border-l-4 border-pink-500 pl-2">作战控制 (CONTROLS)</h3>
+                    <ul class="space-y-2">
+                        <li><span class="text-white">移动:</span> 键盘 W/A/S/D 或 移动端左侧摇杆</li>
+                        <li><span class="text-white">瞄准:</span> 鼠标移动 或 移动端右侧摇杆</li>
+                        <li><span class="text-white">开火:</span> 鼠标左键 或 移动端右侧摇杆拖动</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-yellow-400 font-bold mb-3 border-l-4 border-yellow-400 pl-2">任务目标 (OBJECTIVE)</h3>
+                    <ul class="space-y-2">
+                        <li>浪尖儿网络防御战共计 <span class="text-white">5</span> 个难度层级。</li>
+                        <li>击毁所有入侵敌机以推进关卡并获取积分。</li>
+                        <li>积分可用于【改装中心】兑换专属赛博涂装。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-6 bg-gray-900/50 p-4 border border-gray-800 rounded">
+                <h3 class="text-cyan-400 font-bold mb-2">环境交互 (ENVIRONMENT)</h3>
+                <p>棕色土块掩体可被炮火摧毁。<br><span class="text-pink-500 font-bold">YPP</span> 核心矩阵屏障(紫色发光墙体)为绝对防御，不可摧毁。</p>
+            </div>
+
+            <button id="btnUnderstandIntro" class="cy-btn py-4 text-xl tracking-wider mt-8">
+                <i class="fa-solid fa-check mr-2"></i> 确认协议并进入主脑
+            </button>
+        </div>
+    </div>
+
+    <div class="scanlines"></div>
+    <canvas id="gameCanvas"></canvas>
+
+    <div id="loginScreen" class="fixed inset-0 z-[70] flex flex-col items-center justify-center bg-black/95 backdrop-blur-md">
+        <div class="langjianer-bg font-zhimang tracking-widest">浪尖儿 网络</div>
+        
+        <div class="text-center mb-10 relative">
+            <h1 class="text-5xl md:text-7xl font-orbitron font-black glitch-text tracking-tighter">
+                CYBER<span class="text-cyan-400">TANK</span>
+            </h1>
+            <p class="text-pink-500 font-mono tracking-[0.3em] text-sm md:text-base mt-2">YPP // WAVEPEAK PROTOCOL</p>
+        </div>
+
+        <div id="loginBox" class="cy-modal p-8 w-full max-w-sm flex flex-col gap-6 relative">
+            <h2 class="text-2xl font-orbitron text-cyan-400 border-b border-cyan-900 pb-2">神经接入 // AUTH</h2>
+            
+            <div id="loginLoading" class="hidden flex-col items-center py-4">
+                <i class="fa-solid fa-circle-notch fa-spin text-3xl text-cyan-400 mb-2"></i>
+                <p class="text-sm font-mono text-cyan-500">正在与服务器同步数据...</p>
+                <p id="networkWarningText" class="text-xs font-mono text-pink-500 mt-2 transition-opacity duration-500" style="opacity: 0;">服务器响应缓慢，即将进入本地模式</p>
+            </div>
+
+            <div id="loginForm" class="flex flex-col gap-4">
+                <div>
+                    <label class="block text-xs font-mono text-gray-400 mb-1">呼号 (USERNAME)</label>
+                    <input type="text" id="usernameInput" class="cy-input w-full" placeholder="输入您的特工代号" maxlength="12">
+                </div>
+                
+                <button id="btnRegister" class="cy-btn py-3 text-lg tracking-wider mt-2">
+                    <i class="fa-solid fa-fingerprint mr-2"></i> 注册 / 登入
+                </button>
+                
+                <div class="flex items-center gap-2">
+                    <div class="h-px bg-gray-800 flex-1"></div>
+                    <span class="text-xs font-mono text-gray-500">OR</span>
+                    <div class="h-px bg-gray-800 flex-1"></div>
+                </div>
+
+                <button id="btnGuest" class="cy-btn pink py-3 text-lg tracking-wider">
+                    <i class="fa-solid fa-user-ninja mr-2"></i> 游客模式
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="mainMenu" class="fixed inset-0 z-[60] flex flex-col items-center justify-center bg-black/85 backdrop-blur-md hidden">
+        <div class="absolute top-6 right-6 text-right">
+            <p class="font-orbitron text-cyan-400 text-lg" id="menuUsername">USER_UNKNOWN</p>
+            <p class="font-mono text-pink-500 text-sm">积分: <span id="menuScore">0</span></p>
+            <button id="btnSwitchAccount" class="text-xs text-gray-500 underline mt-1 hover:text-white">切断连接</button>
+        </div>
+
+        <div class="text-center mb-12">
+            <h1 class="text-5xl md:text-7xl font-orbitron font-black glitch-text mb-2 tracking-tighter">
+                CYBER<span class="text-cyan-400">TANK</span>
+            </h1>
+            <p class="text-pink-500 font-mono tracking-[0.3em] text-sm md:text-base">浪尖儿 // 突围行动</p>
+        </div>
+
+        <div class="flex flex-col gap-5 w-full max-w-xs relative z-10">
+            <button id="btnStartGame" class="cy-btn py-4 text-xl tracking-wider">
+                <i class="fa-solid fa-play mr-2"></i> 接入战斗 (选择关卡)
+            </button>
+            <button id="btnShop" class="cy-btn yellow py-4 text-lg tracking-wider">
+                <i class="fa-solid fa-store mr-2"></i> 改装中心 (皮肤)
+            </button>
+            <button id="btnLeaderboard" class="cy-btn pink py-4 text-lg tracking-wider">
+                <i class="fa-solid fa-trophy mr-2"></i> 战绩排行
+            </button>
+        </div>
+    </div>
+
+    <div id="gameHUD" class="fixed inset-0 z-20 pointer-events-none flex-col justify-between p-4 md:p-8 hidden">
+        <div class="flex justify-between w-full font-orbitron">
+            <div class="bg-black/50 p-3 border-l-4 border-cyan-400 backdrop-blur-sm pointer-events-auto flex-1 max-w-[250px]">
+                <div class="text-xs text-cyan-400 mb-1">P1 UNIT <span id="hudLevelDisplay" class="ml-2 text-pink-500">LEVEL 1</span></div>
+                <div class="flex items-center gap-3">
+                    <div class="text-2xl font-bold text-white w-16" id="p1Score">000</div>
+                    <div class="w-full h-4 bg-gray-800 rounded-full overflow-hidden border border-gray-700">
+                        <div id="p1Health" class="h-full bg-cyan-400 transition-all duration-300" style="width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center bg-black/50 p-3 border-b-4 border-yellow-400 backdrop-blur-sm pointer-events-auto mx-2 flex-shrink-0 self-start">
+                <button id="btnPause" class="cy-btn yellow px-4 py-2 text-sm"><i class="fa-solid fa-pause"></i></button>
+            </div>
+
+            <!-- 新增：缩略雷达地图 -->
+            <div class="bg-black/80 border-2 border-cyan-400 backdrop-blur-sm pointer-events-auto flex-1 max-w-[150px] shadow-[0_0_15px_rgba(0,243,255,0.3)] flex flex-col items-center p-1 self-start">
+                <div class="text-[10px] text-cyan-400 font-mono mb-1 tracking-widest bg-cyan-900/40 w-full text-center py-0.5">SYS.RADAR</div>
+                <canvas id="minimapCanvas" width="120" height="120" class="block w-full h-auto opacity-80"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div id="joystickLeft" class="joystick-zone"><div class="joystick-knob" id="knobLeft"></div></div>
+    <div id="joystickRight" class="joystick-zone"><div class="joystick-knob" id="knobRight"></div></div>
+    <div id="damageContainer" class="fixed inset-0 pointer-events-none z-30"></div>
+
+    <div id="systemModal" class="modal-overlay fixed inset-0 items-center justify-center hidden z-[80] flex-col">
+        <div id="modalContent" class="cy-modal p-6 w-full max-w-2xl mx-4 relative flex flex-col max-h-[80vh]">
+            <!-- 动态内容容器 -->
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, query, getDocs, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Firebase Initialization
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'cyber-tank-evo';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        
+        let app, db, auth;
+        try {
+            app = initializeApp(firebaseConfig);
+            db = getFirestore(app);
+            auth = getAuth(app);
+        } catch(e) {
+            console.warn("Firebase Init Error (Running in fallback mode):", e);
+        }
+
+        // Global State
+        const STATE = {
+            user: {
+                uid: null,
+                username: 'GUEST',
+                score: 0,
+                level: 1, // Progress memory
+                skins: ['cyan'],
+                equippedSkin: 'cyan',
+                isGuest: false
+            },
+            shop: [
+                { id: 'cyan', name: '原初脉冲 (Cyan)', cost: 0, color: 0x00f3ff },
+                { id: 'crimson', name: '腥红收割者 (Crimson)', cost: 500, color: 0xff0033 },
+                { id: 'gold', name: '财团镀金 (Gold)', cost: 1000, color: 0xffaa00 },
+                { id: 'neon', name: '矩阵黑客 (Neon Green)', cost: 2000, color: 0x00ff66 }
+            ]
+        };
+
+        const CONFIG = {
+            arenaSize: 120,
+            gridSize: 6,
+            colors: {
+                wall: 0x1a1a24, wallGlow: 0x0033aa,
+                dirt: 0x8B4513, dirtGlow: 0x4a2311,
+                bullet: 0xffff00
+            },
+            playerMaxHp: 500, // 大幅增强生命值
+            enemyBaseHp: 20
+        };
+
+        const Utils = {
+            isMobile: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768,
+            randomRange: (min, max) => Math.random() * (max - min) + min,
+            showDamage: (amount, x, y) => {
+                const container = document.getElementById('damageContainer');
+                const el = document.createElement('div');
+                el.className = 'floating-dmg';
+                el.innerText = `-${amount}`;
+                el.style.left = `${x}px`;
+                el.style.top = `${y}px`;
+                container.appendChild(el);
+                setTimeout(() => el.remove(), 1000);
+            }
+        };
+
+        // --- Database Controllers ---
+        const DBManager = {
+            async authAndLoad() {
+                if (!auth) return false;
+                try {
+                    if (typeof __initial_auth_token !== 'undefined') {
+                        await signInWithCustomToken(auth, __initial_auth_token);
+                    } else {
+                        await signInAnonymously(auth);
+                    }
+                    STATE.user.uid = auth.currentUser.uid;
+                    return await this.loadUserData();
+                } catch(e) {
+                    console.error("Auth failed", e);
+                    return false;
+                }
+            },
+            
+            async loadUserData() {
+                if(!auth || !auth.currentUser) return false;
+                try {
+                    const docRef = doc(db, 'artifacts', appId, 'users', STATE.user.uid);
+                    const docSnap = await getDoc(docRef);
+                    if(docSnap.exists()) {
+                        const data = docSnap.data();
+                        STATE.user = { ...STATE.user, ...data, uid: STATE.user.uid };
+                        return true;
+                    }
+                    return false; // Requires account creation
+                } catch(e) { console.error(e); return false; }
+            },
+
+            async createProfile(username, isGuest = false) {
+                STATE.user.username = username;
+                STATE.user.isGuest = isGuest;
+                if(!auth || !auth.currentUser) return;
+                try {
+                    await setDoc(doc(db, 'artifacts', appId, 'users', STATE.user.uid), {
+                        username: STATE.user.username,
+                        score: STATE.user.score,
+                        level: STATE.user.level,
+                        skins: STATE.user.skins,
+                        equippedSkin: STATE.user.equippedSkin,
+                        isGuest: STATE.user.isGuest
+                    });
+                } catch(e) { console.error(e); }
+            },
+
+            async saveProgress() {
+                if(!auth || !auth.currentUser || STATE.user.isGuest) return; // Optional: disable cloud save for guests if desired, but we'll save anyway to same path
+                try {
+                    await updateDoc(doc(db, 'artifacts', appId, 'users', STATE.user.uid), {
+                        score: STATE.user.score,
+                        level: STATE.user.level,
+                        skins: STATE.user.skins,
+                        equippedSkin: STATE.user.equippedSkin
+                    });
+                    
+                    // Update leaderboard
+                    await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'leaderboard', STATE.user.uid), {
+                        username: STATE.user.username,
+                        score: STATE.user.score,
+                        timestamp: Date.now()
+                    });
+                } catch(e) { console.error(e); }
+            },
+
+            async getLeaderboard() {
+                try {
+                    const q = query(collection(db, 'artifacts', appId, 'public', 'data', 'leaderboard'));
+                    const querySnapshot = await getDocs(q);
+                    let lb = [];
+                    querySnapshot.forEach(doc => lb.push(doc.data()));
+                    lb.sort((a,b) => b.score - a.score);
+                    return lb.slice(0, 50); // top 50
+                } catch(e) { console.error(e); return []; }
+            }
+        };
+
+        const UI = {
+            panelOpen: false,
+            soundOn: true,
+
+            init() {
+                // Settings Panel UI bindings
+                setInterval(() => {
+                    const el = document.getElementById('systemClock');
+                    if (el) el.innerText = `SYS.TIME: ${new Date().toLocaleTimeString('en-US', {hour12:false})}`;
+                }, 1000);
+
+                document.getElementById('togglePanelBtn').addEventListener('click', () => {
+                    this.panelOpen = !this.panelOpen;
+                    document.getElementById('topSettingsPanel').classList.toggle('open', this.panelOpen);
+                    const icon = document.getElementById('toggleIcon');
+                    icon.className = this.panelOpen ? 'fa-solid fa-chevron-up text-xl' : 'fa-solid fa-chevron-down text-xl';
+                });
+
+                document.getElementById('btnSound').addEventListener('click', () => {
+                    this.soundOn = !this.soundOn;
+                    document.getElementById('soundStatus').innerText = this.soundOn ? 'ON' : 'OFF';
+                    document.querySelector('#btnSound i').className = this.soundOn ? 'fa-solid fa-volume-high text-lg group-hover:animate-pulse' : 'fa-solid fa-volume-xmark text-lg text-gray-500';
+                });
+
+                document.getElementById('btnTopPause').addEventListener('click', () => {
+                    document.getElementById('btnPause').click();
+                });
+
+                document.getElementById('btnTopLogout').addEventListener('click', () => {
+                    if (auth) signOut(auth).then(() => location.reload());
+                });
+
+                document.getElementById('btnTopHome').addEventListener('click', () => {
+                    Engine.stop();
+                    this.closeModal();
+                    document.getElementById('gameHUD').classList.add('hidden');
+                    document.getElementById('gameHUD').classList.remove('flex');
+                    this.showMainMenu();
+                    if(this.panelOpen) document.getElementById('togglePanelBtn').click();
+                });
+
+                // HP Sliders UI bindings
+                const playerSlider = document.getElementById('playerHpSlider');
+                const playerDisplay = document.getElementById('playerHpDisplay');
+                playerSlider.addEventListener('input', (e) => {
+                    CONFIG.playerMaxHp = parseInt(e.target.value);
+                    playerDisplay.innerText = e.target.value;
+                });
+
+                const enemySlider = document.getElementById('enemyHpSlider');
+                const enemyDisplay = document.getElementById('enemyHpDisplay');
+                enemySlider.addEventListener('input', (e) => {
+                    CONFIG.enemyBaseHp = parseInt(e.target.value);
+                    enemyDisplay.innerText = e.target.value;
+                });
+
+                // Intro Modal binding
+                document.getElementById('btnUnderstandIntro').addEventListener('click', () => {
+                    document.getElementById('introScreen').classList.add('hidden');
+                    this.showMainMenu();
+                });
+
+                // Initial Screen bindings
+                document.getElementById('btnRegister').addEventListener('click', () => this.handleLogin(false));
+                document.getElementById('btnGuest').addEventListener('click', () => this.handleLogin(true));
+                document.getElementById('btnSwitchAccount').addEventListener('click', () => {
+                    document.getElementById('mainMenu').classList.add('hidden');
+                    document.getElementById('loginScreen').classList.remove('hidden');
+                    document.getElementById('usernameInput').value = '';
+                });
+
+                document.getElementById('btnStartGame').addEventListener('click', () => {
+                    this.openLevelSelect();
+                });
+
+                document.getElementById('btnShop').addEventListener('click', () => this.openShop());
+                document.getElementById('btnLeaderboard').addEventListener('click', () => this.openLeaderboard());
+                
+                document.getElementById('btnPause').addEventListener('click', () => {
+                    Engine.isPaused = !Engine.isPaused;
+                    
+                    // Sync top panel pause icon
+                    const topPauseText = document.getElementById('topPauseText');
+                    const topPauseIcon = document.getElementById('topPauseIcon');
+                    if(topPauseText && topPauseIcon) {
+                        topPauseText.innerText = Engine.isPaused ? '继续流转' : '暂停任务';
+                        topPauseIcon.className = Engine.isPaused ? 'fa-solid fa-play text-lg' : 'fa-solid fa-pause text-lg';
+                    }
+
+                    if (Engine.isPaused) {
+                        this.openModal('系统暂停', `
+                            <div class="flex justify-center gap-4 mt-4">
+                                <button id="btnResume" class="cy-btn py-2 px-6">继续执行</button>
+                                <button id="btnQuit" class="cy-btn pink py-2 px-6">放弃任务</button>
+                            </div>
+                        `);
+                        document.getElementById('btnResume').onclick = () => {
+                            Engine.isPaused = false;
+                            if(topPauseText && topPauseIcon) {
+                                topPauseText.innerText = '暂停任务';
+                                topPauseIcon.className = 'fa-solid fa-pause text-lg';
+                            }
+                            this.closeModal();
+                        };
+                        document.getElementById('btnQuit').onclick = () => {
+                            Engine.stop();
+                            this.closeModal();
+                            document.getElementById('gameHUD').classList.add('hidden');
+                            document.getElementById('gameHUD').classList.remove('flex');
+                            this.showMainMenu();
+                        };
+                    } else {
+                        this.closeModal();
+                    }
+                });
+
+                this.bootSequence();
+            },
+
+            async bootSequence() {
+                document.getElementById('loginForm').classList.add('hidden');
+                document.getElementById('loginLoading').classList.remove('hidden');
+                document.getElementById('loginLoading').classList.add('flex');
+
+                const warningText = document.getElementById('networkWarningText');
+                if(warningText) warningText.style.opacity = '0';
+
+                const timeoutTimer = setTimeout(() => {
+                    if(warningText) warningText.style.opacity = '1';
+                }, 2000);
+
+                try {
+                    const userExists = await Promise.race([
+                        DBManager.authAndLoad(),
+                        new Promise((_, reject) => setTimeout(() => reject('TIMEOUT'), 4000))
+                    ]);
+                    
+                    clearTimeout(timeoutTimer);
+
+                    if (userExists) {
+                        document.getElementById('loginScreen').classList.add('hidden');
+                        this.showIntro();
+                    } else {
+                        document.getElementById('loginLoading').classList.add('hidden');
+                        document.getElementById('loginLoading').classList.remove('flex');
+                        document.getElementById('loginForm').classList.remove('hidden');
+                    }
+                } catch(e) {
+                    clearTimeout(timeoutTimer);
+                    console.warn("Connection timeout. Entering offline mode.", e);
+                    document.getElementById('loginLoading').classList.add('hidden');
+                    document.getElementById('loginLoading').classList.remove('flex');
+                    document.getElementById('loginForm').classList.remove('hidden');
+                }
+            },
+
+            async handleLogin(isGuest) {
+                let username = document.getElementById('usernameInput').value.trim();
+                if (isGuest) {
+                    username = "Guest_" + Math.floor(Math.random()*10000);
+                } else if (!username) {
+                    return; 
+                }
+
+                document.getElementById('loginForm').classList.add('hidden');
+                document.getElementById('loginLoading').classList.remove('hidden');
+                document.getElementById('loginLoading').classList.add('flex');
+
+                const warningText = document.getElementById('networkWarningText');
+                if(warningText) warningText.style.opacity = '1';
+
+                STATE.user.username = username;
+                STATE.user.isGuest = isGuest;
+                if (!STATE.user.uid) STATE.user.uid = "local_" + Date.now();
+
+                try {
+                    await Promise.race([
+                        DBManager.createProfile(username, isGuest),
+                        new Promise((_, reject) => setTimeout(() => reject('TIMEOUT'), 2000))
+                    ]);
+                } catch(e) {
+                    console.warn("Profile creation timeout. Local mode enabled.");
+                } finally {
+                    document.getElementById('loginScreen').classList.add('hidden');
+                    this.showIntro();
+                }
+            },
+
+            showIntro() {
+                document.getElementById('introScreen').classList.remove('hidden');
+            },
+
+            showMainMenu() {
+                document.getElementById('mainMenu').classList.remove('hidden');
+                document.getElementById('menuUsername').innerText = STATE.user.username;
+                document.getElementById('menuScore').innerText = STATE.user.score;
+                document.getElementById('joystickLeft').style.display = 'none';
+                document.getElementById('joystickRight').style.display = 'none';
+            },
+
+            openModal(title, htmlContent) {
+                const modal = document.getElementById('systemModal');
+                const content = document.getElementById('modalContent');
+                content.innerHTML = `
+                    <div class="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-cyan-500"></div>
+                    <div class="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-cyan-500"></div>
+                    <div class="flex justify-between items-center border-b border-gray-800 pb-2 mb-4">
+                        <h3 class="text-xl font-orbitron text-cyan-400">${title}</h3>
+                        <button onclick="document.getElementById('systemModal').classList.add('hidden')" class="text-gray-500 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+                    <div class="overflow-y-auto pr-2 custom-scrollbar flex-1 font-mono text-sm text-gray-300">
+                        ${htmlContent}
+                    </div>
+                `;
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            },
+
+            closeModal() {
+                document.getElementById('systemModal').classList.add('hidden');
+                document.getElementById('systemModal').classList.remove('flex');
+            },
+
+            openShop() {
+                let html = `<div class="grid grid-cols-1 md:grid-cols-2 gap-4">`;
+                STATE.shop.forEach(item => {
+                    const unlocked = STATE.user.skins.includes(item.id);
+                    const equipped = STATE.user.equippedSkin === item.id;
+                    const canBuy = STATE.user.score >= item.cost;
+                    
+                    let btnHtml = '';
+                    if (equipped) btnHtml = `<button disabled class="cy-btn w-full py-2">已装备</button>`;
+                    else if (unlocked) btnHtml = `<button onclick="UI.equipSkin('${item.id}')" class="cy-btn yellow w-full py-2">装备</button>`;
+                    else btnHtml = `<button onclick="UI.buySkin('${item.id}')" ${canBuy?'':'disabled'} class="cy-btn pink w-full py-2">${item.cost} 积分</button>`;
+
+                    html += `
+                        <div class="border border-gray-800 p-4 bg-black/50 flex flex-col items-center gap-3">
+                            <div class="w-16 h-16 rounded-full border-2 border-gray-700 shadow-[0_0_15px_rgba(255,255,255,0.1)]" style="background-color: #${item.color.toString(16).padStart(6,'0')}; box-shadow: inset 0 0 20px rgba(0,0,0,0.8), 0 0 20px #${item.color.toString(16).padStart(6,'0')}"></div>
+                            <div class="text-center">
+                                <div class="text-cyan-300 font-bold">${item.name}</div>
+                            </div>
+                            ${btnHtml}
+                        </div>
+                    `;
+                });
+                html += `</div>`;
+                this.openModal('改装中心 // SHOP', html);
+            },
+
+            buySkin(id) {
+                const item = STATE.shop.find(s => s.id === id);
+                if(STATE.user.score >= item.cost) {
+                    STATE.user.score -= item.cost;
+                    STATE.user.skins.push(id);
+                    this.equipSkin(id);
+                    DBManager.saveProgress();
+                }
+            },
+
+            equipSkin(id) {
+                STATE.user.equippedSkin = id;
+                this.openShop(); // Refresh UI
+                document.getElementById('menuScore').innerText = STATE.user.score;
+                DBManager.saveProgress();
+            },
+
+            async openLeaderboard() {
+                this.openModal('云端同步中...', '<div class="text-center py-10"><i class="fa-solid fa-spinner fa-spin text-3xl text-cyan-400"></i></div>');
+                const data = await DBManager.getLeaderboard();
+                
+                let html = `
+                    <table class="w-full text-left">
+                        <thead><tr class="text-cyan-500 border-b border-gray-800"><th class="pb-2">RANK</th><th class="pb-2">AGENT</th><th class="pb-2 text-right">SCORE</th></tr></thead>
+                        <tbody>
+                `;
+                data.forEach((r, i) => {
+                    let rankStyle = i===0 ? 'text-yellow-400 font-bold' : (i===1 ? 'text-gray-300' : (i===2 ? 'text-orange-400' : 'text-gray-500'));
+                    html += `
+                        <tr class="border-b border-gray-900/50 hover:bg-gray-800/50 transition-colors">
+                            <td class="py-3 ${rankStyle}">#${i+1}</td>
+                            <td class="py-3 text-white">${r.username}</td>
+                            <td class="py-3 text-right text-pink-500 font-orbitron">${r.score}</td>
+                        </tr>
+                    `;
+                });
+                html += `</tbody></table>`;
+                this.openModal('殿堂名录 // LEADERBOARD', html);
+            },
+
+            updateHUD() {
+                document.getElementById('p1Score').innerText = Engine.sessionScore.toString().padStart(4, '0');
+                if (Engine.player) {
+                    const hpPercent = Math.max(0, (Engine.player.hp / Engine.player.maxHp) * 100);
+                    document.getElementById('p1Health').style.width = `${hpPercent}%`;
+                }
+                document.getElementById('hudLevelDisplay').innerText = `LEVEL ${Engine.currentLevel}`;
+            },
+
+            openLevelSelect() {
+                const levelData = [
+                    { name: "外围节点", desc: "轻度防御区。掩体稀疏，适合熟悉机动与开火操作。" },
+                    { name: "数据中枢", desc: "标准防御区。开始出现密集土块掩体，注意敌方交火火力。" },
+                    { name: "加密长廊", desc: "高危区域。掩体组成迷宫地形，敌军围剿频率大幅上升。" },
+                    { name: "逻辑深渊", desc: "极限区域。错综复杂的战场，生存空间被极度压缩。" },
+                    { name: "YPP主脑核心", desc: "绝对防御区。YPP核心矩阵周围布满重兵，决战之地。" }
+                ];
+
+                let html = '<div class="grid grid-cols-1 md:grid-cols-2 gap-4">';
+                levelData.forEach((lvl, i) => {
+                    const levelNum = i + 1;
+                    const isUnlocked = levelNum <= STATE.user.level;
+                    const lockClass = isUnlocked ? 'border-cyan-500 shadow-[0_0_10px_rgba(0,243,255,0.2)]' : 'border-gray-800 opacity-60 pointer-events-none grayscale';
+
+                    html += `
+                        <div class="border p-4 bg-black/60 flex flex-col gap-2 relative transition-all ${lockClass}">
+                            ${!isUnlocked ? '<div class="absolute inset-0 flex items-center justify-center bg-black/70 z-10"><i class="fa-solid fa-lock text-4xl text-pink-500"></i></div>' : ''}
+                            <div class="text-xl font-orbitron ${isUnlocked ? 'text-cyan-400' : 'text-gray-400'} font-bold">LEVEL ${levelNum}</div>
+                            <div class="text-sm font-zhimang text-pink-400 text-lg tracking-widest">${lvl.name}</div>
+                            <div class="text-xs text-gray-300 font-mono flex-1 mb-2 leading-relaxed">${lvl.desc}</div>
+                            <button onclick="UI.startSelectedLevel(${levelNum})" class="cy-btn ${isUnlocked ? 'yellow' : ''} w-full py-2 text-sm"><i class="fa-solid fa-satellite-dish mr-2"></i> 建立连接</button>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+
+                this.openModal('任务节点选择 // LEVEL SELECT', html);
+            },
+
+            startSelectedLevel(levelNum) {
+                this.closeModal();
+                document.getElementById('mainMenu').classList.add('hidden');
+                document.getElementById('gameHUD').classList.remove('hidden');
+                document.getElementById('gameHUD').classList.add('flex');
+                if(Utils.isMobile) {
+                    document.getElementById('joystickLeft').style.display = 'block';
+                    document.getElementById('joystickRight').style.display = 'block';
+                }
+                Engine.startLevel(levelNum);
+            },
+
+            showLevelClear() {
+                STATE.user.score += Engine.sessionScore; // Add session score to total
+                
+                // 更新关卡解锁进度
+                if (Engine.currentLevel >= STATE.user.level && STATE.user.level < 5) {
+                    STATE.user.level = Engine.currentLevel + 1;
+                }
+
+                if (Engine.currentLevel === 5) {
+                    // Game Beaten
+                    DBManager.saveProgress();
+                    this.openModal('行动成功 // MISSION ACCOMPLISHED', `
+                        <div class="text-center py-6">
+                            <h2 class="text-4xl text-yellow-400 font-orbitron mb-4">SYSTEM BREACHED</h2>
+                            <p class="mb-4">特工 ${STATE.user.username}，你已成功突破最高等级防火墙。</p>
+                            <p class="text-pink-500 text-xl font-bold mb-6">总积分: ${STATE.user.score}</p>
+                            <button id="btnReturnMain" class="cy-btn py-3 px-8">返回主脑</button>
+                        </div>
+                    `);
+                } else {
+                    DBManager.saveProgress();
+                    this.openModal('区域净化 // SECTOR CLEARED', `
+                        <div class="text-center py-6">
+                            <h2 class="text-3xl text-cyan-400 font-orbitron mb-4">LEVEL ${Engine.currentLevel} CLEAR</h2>
+                            <p class="text-gray-300 mb-6">获得积分: <span class="text-pink-500 font-bold">+${Engine.sessionScore}</span></p>
+                            <div class="flex justify-center gap-4">
+                                <button id="btnNextLevel" class="cy-btn yellow py-3 px-8">深入下一层</button>
+                                <button id="btnReturnMain" class="cy-btn py-3 px-8">暂时撤离</button>
+                            </div>
+                        </div>
+                    `);
+                    document.getElementById('btnNextLevel').onclick = () => {
+                        this.closeModal();
+                        Engine.startLevel(Engine.currentLevel + 1);
+                    };
+                }
+
+                document.getElementById('btnReturnMain').onclick = () => {
+                    Engine.stop();
+                    this.closeModal();
+                    document.getElementById('gameHUD').classList.add('hidden');
+                    document.getElementById('gameHUD').classList.remove('flex');
+                    this.showMainMenu();
+                };
+            },
+
+            showGameOver() {
+                DBManager.saveProgress(); // Save accumulated score before death
+                this.openModal('信号丢失 // SIGNAL LOST', `
+                    <div class="text-center py-6">
+                        <h2 class="text-5xl text-red-500 font-orbitron font-black glitch-text mb-4">SYS.FAILURE</h2>
+                        <p class="text-gray-300 font-mono text-lg mb-8">战术单位已摧毁 // TACTICAL UNIT DESTROYED</p>
+                        <div class="flex justify-center gap-4">
+                            <button id="btnRestartLevel" class="cy-btn yellow py-3 px-8">本层重试</button>
+                            <button id="btnReturnMainDeath" class="cy-btn py-3 px-8">返回主脑</button>
+                        </div>
+                    </div>
+                `);
+                
+                document.getElementById('btnRestartLevel').onclick = () => {
+                    this.closeModal();
+                    Engine.startLevel(STATE.user.level); // Retry current level
+                };
+                document.getElementById('btnReturnMainDeath').onclick = () => {
+                    Engine.stop();
+                    this.closeModal();
+                    document.getElementById('gameHUD').classList.add('hidden');
+                    document.getElementById('gameHUD').classList.remove('flex');
+                    this.showMainMenu();
+                };
+            }
+        };
+
+        // 将 UI 对象暴露给全局 window，以便动态生成的 HTML 中的 onclick 可以访问
+        window.UI = UI;
+
+        const Input = {
+            keys: {}, mouse: new THREE.Vector2(), mouseWorldPos: new THREE.Vector3(),
+            isMouseDown: false, joyLeft: { x: 0, y: 0, active: false }, joyRight: { x: 0, y: 0, active: false },
+            
+            init(canvas, camera) {
+                this.camera = camera;
+                window.addEventListener('keydown', e => this.keys[e.code] = true);
+                window.addEventListener('keyup', e => this.keys[e.code] = false);
+                window.addEventListener('mousemove', e => {
+                    this.mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+                    this.mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+                });
+                window.addEventListener('mousedown', () => this.isMouseDown = true);
+                window.addEventListener('mouseup', () => this.isMouseDown = false);
+
+                if (Utils.isMobile) {
+                    this.setupJoystick('joystickLeft', 'knobLeft', this.joyLeft);
+                    this.setupJoystick('joystickRight', 'knobRight', this.joyRight);
+                }
+            },
+
+            setupJoystick(zoneId, knobId, stateObj) {
+                const zone = document.getElementById(zoneId);
+                const knob = document.getElementById(knobId);
+                
+                const handleMove = (e) => {
+                    if (!stateObj.active) return;
+                    e.preventDefault();
+                    let touch = Array.from(e.touches).find(t => t.target.closest(`#${zoneId}`));
+                    if(!touch) return;
+                    
+                    let rect = zone.getBoundingClientRect();
+                    let centerX = rect.left + rect.width / 2;
+                    let centerY = rect.top + rect.height / 2;
+                    
+                    let dx = touch.clientX - centerX;
+                    let dy = touch.clientY - centerY;
+                    let maxDist = rect.width / 2 - 20;
+                    let dist = Math.hypot(dx, dy);
+                    
+                    if (dist > maxDist) { dx = (dx / dist) * maxDist; dy = (dy / dist) * maxDist; }
+                    knob.style.transform = `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px))`;
+                    stateObj.x = dx / maxDist; stateObj.y = dy / maxDist;
+                };
+
+                const handleEnd = (e) => {
+                    let hasTouches = Array.from(e.touches).some(t => t.target.closest(`#${zoneId}`));
+                    if(!hasTouches) {
+                        stateObj.active = false;
+                        knob.style.transform = `translate(-50%, -50%)`;
+                        stateObj.x = 0; stateObj.y = 0;
+                    }
+                };
+
+                zone.addEventListener('touchstart', (e) => { stateObj.active = true; handleMove(e); }, {passive: false});
+                zone.addEventListener('touchmove', handleMove, {passive: false});
+                zone.addEventListener('touchend', handleEnd);
+                zone.addEventListener('touchcancel', handleEnd);
+            },
+
+            updateMouseWorldPos() {
+                if(!this.camera) return;
+                const raycaster = new THREE.Raycaster();
+                raycaster.setFromCamera(this.mouse, this.camera);
+                const plane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
+                raycaster.ray.intersectPlane(plane, this.mouseWorldPos);
+            }
+        };
+
+        class Tank {
+            constructor(scene, isPlayer, x, z, level = 1) {
+                this.scene = scene;
+                this.isPlayer = isPlayer;
+                this.mesh = new THREE.Group();
+                this.radius = 2.5; 
+                
+                // Get Skin color
+                let color = CONFIG.colors.wallGlow;
+                if(isPlayer) {
+                    const skinObj = STATE.shop.find(s => s.id === STATE.user.equippedSkin);
+                    if(skinObj) color = skinObj.color;
+                } else {
+                    color = 0xff0055; // Enemy color
+                }
+
+                // Chassis
+                const chassisGeo = new THREE.BoxGeometry(4, 1.5, 5);
+                this.material = new THREE.MeshPhysicalMaterial({ 
+                    color: 0x111111, emissive: color, emissiveIntensity: isPlayer ? 0.4 : 0.2, 
+                    metalness: 0.9, roughness: 0.2
+                });
+                const chassis = new THREE.Mesh(chassisGeo, this.material);
+                chassis.position.y = 0.75;
+                
+                // Turret
+                const turretGeo = new THREE.CylinderGeometry(1.5, 1.5, 1, 16);
+                const turretMat = new THREE.MeshPhysicalMaterial({ color: 0x222222, metalness: 0.8, roughness: 0.3 });
+                this.turretMesh = new THREE.Mesh(turretGeo, turretMat);
+                this.turretMesh.position.y = 2;
+                
+                // Barrel
+                const barrelGeo = new THREE.CylinderGeometry(0.3, 0.3, 4, 8);
+                const barrelMat = new THREE.MeshBasicMaterial({ color: color });
+                this.barrelMesh = new THREE.Mesh(barrelGeo, barrelMat);
+                this.barrelMesh.rotation.x = Math.PI / 2;
+                this.barrelMesh.position.set(0, 0, -2);
+                this.turretMesh.add(this.barrelMesh);
+                
+                this.mesh.add(chassis);
+                this.mesh.add(this.turretMesh);
+
+                if (this.isPlayer) {
+                    const light = new THREE.PointLight(color, 1, 25);
+                    light.position.y = 3;
+                    this.mesh.add(light);
+                }
+
+                this.mesh.position.set(x, 0, z);
+                this.scene.add(this.mesh);
+
+                // Stats Config
+                if (isPlayer) {
+                    this.maxHp = CONFIG.playerMaxHp;
+                    this.speed = 0.5;
+                    this.fireRate = 300;
+                } else {
+                    this.maxHp = CONFIG.enemyBaseHp + (level * 15);
+                    this.speed = 0.2 + (level * 0.05);
+                    this.fireRate = 2000 - (level * 200);
+                }
+                this.hp = this.maxHp;
+                this.lastFireTime = 0;
+            }
+
+            move(dx, dz) {
+                let newX = this.mesh.position.x + dx * this.speed;
+                let newZ = this.mesh.position.z + dz * this.speed;
+                
+                const limit = CONFIG.arenaSize / 2 - this.radius;
+                newX = Math.max(-limit, Math.min(limit, newX));
+                newZ = Math.max(-limit, Math.min(limit, newZ));
+
+                let canMove = true;
+                for(let wall of Engine.walls) {
+                    let closestX = Math.max(wall.x - wall.w/2, Math.min(newX, wall.x + wall.w/2));
+                    let closestZ = Math.max(wall.z - wall.d/2, Math.min(newZ, wall.z + wall.d/2));
+                    let dist = Math.hypot(newX - closestX, newZ - closestZ);
+                    if(dist < this.radius + 0.5) { canMove = false; break; }
+                }
+
+                if (canMove) {
+                    this.mesh.position.x = newX;
+                    this.mesh.position.z = newZ;
+                    
+                    if (dx !== 0 || dz !== 0) {
+                        const targetRotation = Math.atan2(dx, dz);
+                        let diff = targetRotation - this.mesh.rotation.y;
+                        while(diff < -Math.PI) diff += Math.PI * 2;
+                        while(diff > Math.PI) diff -= Math.PI * 2;
+                        this.mesh.rotation.y += diff * 0.2;
+                    }
+                }
+            }
+
+            aim(targetPos) {
+                let dx = targetPos.x - this.mesh.position.x;
+                let dz = targetPos.z - this.mesh.position.z;
+                this.turretMesh.rotation.y = Math.atan2(dx, dz) - this.mesh.rotation.y;
+            }
+
+            aimDirection(dx, dz) {
+                if(dx !== 0 || dz !== 0) {
+                    this.turretMesh.rotation.y = Math.atan2(dx, dz) - this.mesh.rotation.y;
+                }
+            }
+
+            fire() {
+                const now = Date.now();
+                if (now - this.lastFireTime < this.fireRate) return;
+                this.lastFireTime = now;
+
+                const globalRot = this.mesh.rotation.y + this.turretMesh.rotation.y;
+                const spawnX = this.mesh.position.x + Math.sin(globalRot) * 4;
+                const spawnZ = this.mesh.position.z + Math.cos(globalRot) * 4;
+
+                Engine.spawnBullet(this, spawnX, spawnZ, Math.sin(globalRot), Math.cos(globalRot));
+            }
+
+            takeDamage(amount) {
+                this.hp -= amount;
+                if(this.isPlayer) {
+                    const dmgUI = document.createElement('div');
+                    dmgUI.className = 'fixed inset-0 bg-red-500/30 z-10 pointer-events-none transition-opacity duration-300';
+                    document.body.appendChild(dmgUI);
+                    setTimeout(() => { dmgUI.style.opacity = '0'; setTimeout(()=>dmgUI.remove(), 300); }, 50);
+                }
+
+                if (this.hp <= 0) {
+                    this.scene.remove(this.mesh);
+                }
+            }
+        }
+
+        class Bullet {
+            constructor(scene, owner, x, z, dirX, dirZ) {
+                this.owner = owner;
+                this.scene = scene;
+                this.active = true;
+                
+                const isP = owner.isPlayer;
+                const color = isP ? CONFIG.colors.bullet : 0xffaa00;
+
+                const geo = new THREE.SphereGeometry(0.5, 8, 8);
+                const mat = new THREE.MeshBasicMaterial({ color: color });
+                this.mesh = new THREE.Mesh(geo, mat);
+                this.mesh.position.set(x, 1.5, z);
+                
+                const light = new THREE.PointLight(color, 0.8, 15);
+                this.mesh.add(light);
+                this.scene.add(this.mesh);
+
+                this.velocity = new THREE.Vector3(dirX, 0, dirZ).normalize().multiplyScalar(isP ? 2.0 : 1.0);
+                this.damage = isP ? 20 : 15 + (Engine.currentLevel * 5); // Enemy dmg scales with level
+            }
+
+            update() {
+                if(!this.active) return;
+                this.mesh.position.add(this.velocity);
+
+                const limit = CONFIG.arenaSize / 2;
+                if (Math.abs(this.mesh.position.x) > limit || Math.abs(this.mesh.position.z) > limit) {
+                    this.destroy(); return;
+                }
+
+                // Wall Collision
+                for(let i=0; i<Engine.walls.length; i++) {
+                    let wall = Engine.walls[i];
+                    if (this.mesh.position.x > wall.x - wall.w/2 && this.mesh.position.x < wall.x + wall.w/2 &&
+                        this.mesh.position.z > wall.z - wall.d/2 && this.mesh.position.z < wall.z + wall.d/2) {
+                        
+                        if(wall.type === 'dirt') {
+                            wall.hp -= this.damage;
+                            if(wall.hp <= 0) {
+                                Engine.destroyWall(i);
+                            } else {
+                                // Hit effect color change
+                                wall.mesh.material.emissiveIntensity = 0.8;
+                                setTimeout(() => { if(wall && wall.mesh) wall.mesh.material.emissiveIntensity = 0.2; }, 100);
+                            }
+                        }
+                        this.destroy();
+                        return;
+                    }
+                }
+
+                // Tank Collision
+                for(let tank of Engine.tanks) {
+                    if(tank === this.owner || tank.hp <= 0) continue;
+                    if(!this.owner.isPlayer && !tank.isPlayer) continue; // Friendly fire off
+
+                    let dist = this.mesh.position.distanceTo(tank.mesh.position);
+                    if(dist < tank.radius + 1.0) {
+                        tank.takeDamage(this.damage);
+                        
+                        const vec = tank.mesh.position.clone(); vec.project(Input.camera);
+                        const sx = (vec.x * .5 + .5) * window.innerWidth;
+                        const sy = (-(vec.y * .5) + .5) * window.innerHeight;
+                        Utils.showDamage(this.damage, sx, sy);
+
+                        if(tank.hp <= 0 && this.owner.isPlayer) {
+                            Engine.sessionScore += 10;
+                            Engine.enemiesDefeated++;
+                        }
+                        this.destroy(); return;
+                    }
+                }
+            }
+
+            destroy() {
+                this.active = false;
+                this.scene.remove(this.mesh);
+            }
+        }
+
+        const Engine = {
+            scene: null, camera: null, renderer: null,
+            isRunning: false, isPaused: false,
+            currentLevel: 1, sessionScore: 0,
+            tanks: [], bullets: [], walls: [],
+            player: null,
+            enemiesDefeated: 0, enemiesToDefeat: 0, lastEnemySpawn: 0,
+            
+            init() {
+                const canvas = document.getElementById('gameCanvas');
+                this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+                this.renderer.setSize(window.innerWidth, window.innerHeight);
+                this.renderer.setPixelRatio(window.devicePixelRatio);
+                
+                this.scene = new THREE.Scene();
+                this.scene.fog = new THREE.FogExp2(0x050505, 0.012);
+
+                this.camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
+                Input.init(canvas, this.camera);
+
+                this.scene.add(new THREE.AmbientLight(0x333333));
+                const dirLight = new THREE.DirectionalLight(0xffffff, 0.5);
+                dirLight.position.set(20, 50, 20);
+                this.scene.add(dirLight);
+
+                window.addEventListener('resize', () => {
+                    this.camera.aspect = window.innerWidth / window.innerHeight;
+                    this.camera.updateProjectionMatrix();
+                    this.renderer.setSize(window.innerWidth, window.innerHeight);
+                });
+
+                this.animate = this.animate.bind(this);
+                requestAnimationFrame(this.animate);
+            },
+
+            startLevel(levelNum) {
+                this.currentLevel = levelNum;
+                this.sessionScore = 0;
+                this.enemiesDefeated = 0;
+                this.enemiesToDefeat = 5 + (levelNum * 3); // More enemies per level
+                this.lastEnemySpawn = Date.now();
+                
+                this.clearEntities();
+                this.buildArena(levelNum);
+                
+                this.player = new Tank(this.scene, true, 0, CONFIG.arenaSize/2 - 15, levelNum);
+                this.tanks.push(this.player);
+
+                this.isRunning = true;
+                this.isPaused = false;
+            },
+
+            clearEntities() {
+                this.tanks.forEach(t => this.scene.remove(t.mesh));
+                this.bullets.forEach(b => this.scene.remove(b.mesh));
+                this.walls.forEach(w => this.scene.remove(w.mesh));
+                this.tanks = []; this.bullets = []; this.walls = [];
+                if(this.floor) this.scene.remove(this.floor);
+            },
+
+            buildArena(levelNum) {
+                // Ground setup
+                const floorGeo = new THREE.PlaneGeometry(CONFIG.arenaSize, CONFIG.arenaSize);
+                const floorMat = new THREE.MeshStandardMaterial({ color: 0x0a0a0a, roughness: 0.9 });
+                this.floor = new THREE.Mesh(floorGeo, floorMat);
+                this.floor.rotation.x = -Math.PI / 2;
+                this.scene.add(this.floor);
+
+                const grid = new THREE.GridHelper(CONFIG.arenaSize, 40, 0x00f3ff, 0x002244);
+                grid.position.y = 0.1;
+                grid.material.opacity = 0.2;
+                grid.material.transparent = true;
+                this.scene.add(grid);
+
+                // Border Walls (Indestructible)
+                const bMat = new THREE.MeshPhysicalMaterial({ color: 0x111111, emissive: 0x00f3ff, emissiveIntensity: 0.1, wireframe: true });
+                const s = CONFIG.arenaSize, th = 2;
+                const bParams = [
+                    [0, s/2+th/2, s+th*2, th], [0, -s/2-th/2, s+th*2, th],
+                    [s/2+th/2, 0, th, s], [-s/2-th/2, 0, th, s]
+                ];
+                bParams.forEach(p => {
+                    let mesh = new THREE.Mesh(new THREE.BoxGeometry(p[2], 10, p[3]), bMat);
+                    mesh.position.set(p[0], 5, p[1]); this.scene.add(mesh);
+                    this.walls.push({mesh, x: p[0], z: p[1], w: p[2], d: p[3], type: 'border'});
+                });
+
+                // YPP Layout - Indestructible Centerpiece
+                const yppLayout = [
+                    "Y   Y  PPPP   PPPP ",
+                    " Y Y   P   P  P   P",
+                    "  Y    PPPP   PPPP ",
+                    "  Y    P      P    ",
+                    "  Y    P      P    "
+                ];
+                const gSize = CONFIG.gridSize;
+                const yppMat = new THREE.MeshPhysicalMaterial({ color: 0x111111, emissive: 0xff00ff, emissiveIntensity: 0.4 });
+                
+                const offsetX = -((yppLayout[0].length * gSize) / 2);
+                const offsetZ = -((yppLayout.length * gSize) / 2);
+
+                for(let r=0; r<yppLayout.length; r++) {
+                    for(let c=0; c<yppLayout[r].length; c++) {
+                        if (yppLayout[r][c] !== ' ') {
+                            let x = offsetX + c * gSize + gSize/2;
+                            let z = offsetZ + r * gSize + gSize/2;
+                            let mesh = new THREE.Mesh(new THREE.BoxGeometry(gSize, 8, gSize), yppMat);
+                            mesh.position.set(x, 4, z); this.scene.add(mesh);
+                            this.walls.push({mesh, x, z, w: gSize, d: gSize, type: 'brick'});
+                        }
+                    }
+                }
+
+                // Procedural Dirt Walls based on level
+                const dirtCount = levelNum * 15; // L1: 15, L5: 75
+                const dirtMat = new THREE.MeshStandardMaterial({ color: CONFIG.colors.dirt, roughness: 1.0 });
+                for(let i=0; i<dirtCount; i++) {
+                    let x = Utils.randomRange(-CONFIG.arenaSize/2 + 10, CONFIG.arenaSize/2 - 10);
+                    let z = Utils.randomRange(-CONFIG.arenaSize/2 + 10, CONFIG.arenaSize/2 - 10);
+                    
+                    // Don't spawn on player start or YPP center
+                    if(Math.abs(x) < 25 && Math.abs(z) < 20) continue;
+                    if(Math.hypot(x, CONFIG.arenaSize/2 - 15) < 15) continue;
+
+                    let mesh = new THREE.Mesh(new THREE.BoxGeometry(gSize, 6, gSize), dirtMat);
+                    mesh.position.set(x, 3, z); this.scene.add(mesh);
+                    this.walls.push({mesh, x, z, w: gSize, d: gSize, type: 'dirt', hp: 40});
+                }
+            },
+
+            destroyWall(index) {
+                const wall = this.walls[index];
+                this.scene.remove(wall.mesh);
+                this.walls.splice(index, 1);
+            },
+
+            spawnBullet(owner, x, z, dirX, dirZ) {
+                this.bullets.push(new Bullet(this.scene, owner, x, z, dirX, dirZ));
+            },
+
+            spawnEnemy() {
+                const x = Utils.randomRange(-CONFIG.arenaSize/2 + 5, CONFIG.arenaSize/2 - 5);
+                const z = -CONFIG.arenaSize/2 + 10;
+                let enemy = new Tank(this.scene, false, x, z, this.currentLevel);
+                this.tanks.push(enemy);
+            },
+
+            stop() { this.isRunning = false; },
+
+            animate() {
+                requestAnimationFrame(this.animate);
+                
+                if (this.isRunning && !this.isPaused) {
+                    this.updateLogic();
+                    
+                    // Camera Follow
+                    if (this.player && this.player.hp > 0) {
+                        const targetPos = new THREE.Vector3(this.player.mesh.position.x, 60, this.player.mesh.position.z + 50);
+                        this.camera.position.lerp(targetPos, 0.05);
+                        this.camera.lookAt(this.player.mesh.position);
+                    } else {
+                        // Game Over
+                        this.isRunning = false;
+                        UI.showGameOver();
+                    }
+                } else if (!this.isRunning && this.camera && document.getElementById('mainMenu').classList.contains('hidden') === false) {
+                    // Menu Idle Camera
+                    const time = Date.now() * 0.0002;
+                    this.camera.position.set(Math.sin(time)*80, 60, Math.cos(time)*80);
+                    this.camera.lookAt(0,0,0);
+                }
+
+                this.renderer.render(this.scene, this.camera);
+            },
+
+            updateLogic() {
+                Input.updateMouseWorldPos();
+
+                // Player Input
+                if (this.player && this.player.hp > 0) {
+                    let dx = 0, dz = 0;
+                    if (Input.keys['KeyW']) dz = -1;
+                    if (Input.keys['KeyS']) dz = 1;
+                    if (Input.keys['KeyA']) dx = -1;
+                    if (Input.keys['KeyD']) dx = 1;
+                    
+                    if (Input.joyLeft.active) { dx = Input.joyLeft.x; dz = Input.joyLeft.y; }
+                    
+                    if(dx !== 0 || dz !== 0) {
+                        let len = Math.hypot(dx, dz);
+                        this.player.move(dx/len, dz/len);
+                    }
+
+                    if (Utils.isMobile && Input.joyRight.active) {
+                        this.player.aimDirection(Input.joyRight.x, Input.joyRight.y);
+                        this.player.fire();
+                    } else if (!Utils.isMobile) {
+                        this.player.aim(Input.mouseWorldPos);
+                        if (Input.isMouseDown) this.player.fire();
+                    }
+                }
+
+                // Enemy Spawning
+                const now = Date.now();
+                let activeEnemies = this.tanks.filter(t => !t.isPlayer).length;
+                let enemiesSpawned = this.enemiesDefeated + activeEnemies;
+                
+                if (activeEnemies < (2 + this.currentLevel) && enemiesSpawned < this.enemiesToDefeat && now - this.lastEnemySpawn > (3000 - this.currentLevel*300)) {
+                    this.spawnEnemy();
+                    this.lastEnemySpawn = now;
+                }
+
+                // Win Condition
+                if (this.enemiesDefeated >= this.enemiesToDefeat && activeEnemies === 0) {
+                    this.isRunning = false;
+                    this.sessionScore += 50 * this.currentLevel; // Level clear bonus
+                    UI.showLevelClear();
+                    return;
+                }
+
+                // Enemy AI
+                this.tanks.forEach(t => {
+                    if (t.isPlayer || t.hp <= 0) return;
+                    
+                    if (this.player && this.player.hp > 0) {
+                        let dx = this.player.mesh.position.x - t.mesh.position.x;
+                        let dz = this.player.mesh.position.z - t.mesh.position.z;
+                        let dist = Math.hypot(dx, dz);
+
+                        // Move until close enough, then strafe
+                        if (dist > 25) {
+                            t.move(dx/dist, dz/dist);
+                        } else {
+                            t.move(Math.sin(now/1000 + t.mesh.id), Math.cos(now/1000 + t.mesh.id)); // basic strafe
+                        }
+                        
+                        t.aim(this.player.mesh.position);
+                        t.fire();
+                    }
+                });
+
+                // Updates
+                this.bullets.forEach(b => b.update());
+                this.bullets = this.bullets.filter(b => b.active);
+                this.tanks = this.tanks.filter(t => t.hp > 0);
+
+                UI.updateHUD();
+                this.updateMinimap();
+            },
+
+            updateMinimap() {
+                const mapCanvas = document.getElementById('minimapCanvas');
+                if(!mapCanvas) return;
+                const ctx = mapCanvas.getContext('2d');
+                const w = mapCanvas.width;
+                const h = mapCanvas.height;
+                
+                // 清除画布，填充半透明背景
+                ctx.fillStyle = 'rgba(5, 5, 10, 0.8)';
+                ctx.fillRect(0, 0, w, h);
+
+                const scale = w / CONFIG.arenaSize;
+                const offset = CONFIG.arenaSize / 2;
+
+                // 绘制墙体
+                this.walls.forEach(wall => {
+                    ctx.fillStyle = wall.type === 'brick' ? '#ff00ff' : '#8B4513';
+                    const x = (wall.x + offset - wall.w/2) * scale;
+                    const y = (wall.z + offset - wall.d/2) * scale;
+                    ctx.fillRect(x, y, wall.w * scale, wall.d * scale);
+                });
+
+                // 绘制坦克
+                this.tanks.forEach(tank => {
+                    if (tank.hp <= 0) return;
+                    
+                    ctx.beginPath();
+                    const x = (tank.mesh.position.x + offset) * scale;
+                    const y = (tank.mesh.position.z + offset) * scale;
+                    
+                    if (tank.isPlayer) {
+                        ctx.fillStyle = '#00f3ff'; // 玩家青色
+                        ctx.arc(x, y, 4, 0, Math.PI*2); // 玩家点稍微大一点
+                        ctx.fill();
+                        
+                        // 绘制玩家朝向视野线段
+                        ctx.beginPath();
+                        ctx.strokeStyle = 'rgba(0, 243, 255, 0.7)';
+                        ctx.lineWidth = 1;
+                        const rot = tank.mesh.rotation.y + tank.turretMesh.rotation.y;
+                        ctx.moveTo(x, y);
+                        ctx.lineTo(x + Math.sin(rot) * 15, y + Math.cos(rot) * 15);
+                        ctx.stroke();
+                    } else {
+                        ctx.fillStyle = '#ff0055'; // 敌方红色
+                        ctx.arc(x, y, 3, 0, Math.PI*2);
+                        ctx.fill();
+                    }
+                });
+            }
+        };
+
+        // Bootstrap
+        window.onload = () => {
+            Engine.init();
+            UI.init();
+        };
+
+    </script>
+</body>
+</html>
