@@ -51,6 +51,26 @@ body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;ba
   linear-gradient(var(--line-s) 1px,transparent 1px),
   linear-gradient(90deg,var(--line-s) 1px,transparent 1px);
   background-size:auto,auto,32px 32px,32px 32px}
+/* 实感折射水面画布：作为最底层背景层，位于现有 CSS 背景之上、内容之下 */
+#rippleCanvas{position:fixed;inset:0;z-index:-1;width:100vw;height:100vh;display:block;pointer-events:none}
+@media (prefers-reduced-motion: reduce){#rippleCanvas{display:none!important}}
+@media print{#rippleCanvas{display:none!important}}
+
+/* 信封开启动画：左右两翼分屏翻开，露出正文 */
+#envIntro{position:fixed;inset:0;z-index:600;display:flex;pointer-events:none}
+.env-half{position:absolute;top:0;bottom:0;width:51%;transition:transform 1s cubic-bezier(.72,.05,.28,1);will-change:transform}
+.env-l{left:0;background:linear-gradient(120deg,#0d5c44 0%,#0a4634 60%,#0f5f47 100%)}
+.env-r{right:0;background:linear-gradient(240deg,#0d5c44 0%,#0a4634 60%,#0f5f47 100%)}
+/* 两翼内侧的"信封折口"三角 */
+.env-l::after{content:"";position:absolute;top:0;right:-40px;width:0;height:0;border-top:50.5vh solid transparent;border-left:40px solid #082e23;border-bottom:50.5vh solid transparent}
+.env-r::after{content:"";position:absolute;top:0;left:-40px;width:0;height:0;border-top:50.5vh solid transparent;border-right:40px solid #082e23;border-bottom:50.5vh solid transparent}
+#envIntro .env-ribbon{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;z-index:3;color:#eaf6ef;transition:opacity .4s ease}
+.env-monogram{font-family:var(--fd);font-size:clamp(4rem,12vw,7rem);line-height:1;display:block;background:linear-gradient(120deg,#e9c46a,#c9962e);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 8px 30px rgba(0,0,0,.35)}
+.env-label{display:block;font-family:var(--fm);font-size:11px;letter-spacing:3px;color:#b8d8c8;margin-top:12px;opacity:.9}
+#envIntro.open .env-l{transform:translateX(-101%)}
+#envIntro.open .env-r{transform:translateX(101%)}
+#envIntro.open .env-ribbon{opacity:0}
+@media print{#envIntro{display:none!important}}
 /* 漂浮代码符号 */
 .bg-glyph{position:fixed;z-index:-1;font-family:var(--fm);font-weight:700;color:var(--pri);opacity:.05;user-select:none;pointer-events:none;animation:drift 14s ease-in-out infinite}
 .g1{font-size:170px;top:16%;left:-40px}
@@ -188,6 +208,44 @@ body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;ba
 .bar i.learn::after{content:"";position:absolute;inset:0;border-radius:99px;background:repeating-linear-gradient(45deg,rgba(255,255,255,.3) 0 6px,transparent 6px 12px);animation:stripes 1s linear infinite}
 @keyframes stripes{to{background-position:17px 0}}
 .rv.in .bar i{width:var(--w)}
+/* 技能矩阵：S-XX 编号分组卡片 */
+.sk-g{padding:20px}
+.sk-g h3{font-family:var(--fd);font-size:1rem;letter-spacing:.6px;display:flex;align-items:center;gap:9px;margin:0}
+.sk-head{display:flex;align-items:center;gap:10px;margin-bottom:16px;border-bottom:1px solid var(--line-s);padding-bottom:12px}
+.sk-id{font-family:var(--fm);font-size:10.5px;font-weight:700;color:var(--pri-ink);background:var(--acc-soft);border:1px solid var(--line);padding:3px 8px;border-radius:6px;flex:none;letter-spacing:.5px}
+.sk-t{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px}
+.sk-meta{display:inline-flex;align-items:baseline;gap:8px}
+.sk-lv{font-size:11px;color:var(--muted)}
+.sk-pct{font-family:var(--fm);font-size:12px;font-weight:700;color:var(--acc-ink)}
+
+/* 教育证书：按签发机构分组 */
+.cert-org-head{display:flex;align-items:center;gap:10px;margin:16px 0 4px}
+.cert-org-head:first-of-type{margin-top:4px}
+.cert-org-name{font-family:var(--fd);font-size:1.05rem;font-weight:700;letter-spacing:.5px}
+.cert-org-abbr{font-family:var(--fm);font-size:9px;letter-spacing:1px;color:var(--pri-ink);background:var(--acc-soft);border:1px solid var(--line);padding:2px 7px;border-radius:99px}
+.cert-row{display:flex;align-items:center;gap:10px;padding:9px 2px;border-bottom:1px dashed var(--line);cursor:pointer;transition:background .18s}
+.cert-row:last-of-type{border-bottom:none}
+.cert-row:hover{background:var(--line-s)}
+.cert-badge{font-family:var(--fm);font-size:10px;font-weight:700;color:var(--acc-ink);background:var(--acc-soft);border:1px solid var(--line);padding:2px 7px;border-radius:5px;flex:none;letter-spacing:.5px}
+.cert-t{font-size:13px;font-weight:600}
+.cert-note{margin-top:14px;padding-top:10px;border-top:1px dashed var(--line);font-size:11px;color:var(--muted);display:flex;align-items:center;gap:7px}
+.cert-badge-mini{font-family:var(--fm);font-size:9px;font-weight:700;color:var(--acc-ink);background:var(--acc-soft);border:1px solid var(--line);padding:1px 5px;border-radius:4px}
+
+/* 实践方向：分类项目卡片 */
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;align-items:start}
+.proj-cat{background:var(--surface);border:1px solid var(--line-s);border-radius:14px;padding:20px;box-shadow:var(--sh)}
+.proj-cat-head{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.proj-cat h3{font-family:var(--fd);font-size:1.15rem;letter-spacing:.8px}
+.proj-count{font-family:var(--fm);font-size:11px;font-weight:700;color:var(--pri-ink);background:var(--acc-soft);border:1px solid var(--line);padding:2px 8px;border-radius:99px;margin-left:auto}
+.proj-cat-note{font-size:12px;color:var(--muted);margin:0 0 14px}
+.proj-card{border:1px solid var(--line-s);border-radius:10px;padding:14px;margin-top:6px;background:var(--surface2);transition:transform .18s,box-shadow .18s,border-color .18s}
+.proj-card:hover{transform:translateY(-2px);border-color:var(--line);box-shadow:var(--sh)}
+.proj-card h4{font-family:var(--fd);font-size:1rem;letter-spacing:.3px;margin-bottom:6px;color:var(--pri-ink)}
+.proj-d{font-size:12.5px;color:var(--ink2);line-height:1.8;margin:0 0 10px}
+.proj-tech{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.proj-res{display:flex;gap:8px;align-items:flex-start;font-size:12px;color:var(--ink2);line-height:1.6}
+.proj-res-label{flex:none;font-size:10px;font-family:var(--fm);font-weight:700;color:var(--acc-ink);background:var(--acc-soft);border:1px solid var(--line);padding:2px 6px;border-radius:5px;margin-top:1px}
+@media(max-width:640px){.proj-grid{grid-template-columns:1fr}}
 
 /* 教育 */
 .edu-g{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;align-items:start}
@@ -371,10 +429,16 @@ body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;ba
 </style>
 </head>
 <body>
+<canvas id="rippleCanvas" aria-hidden="true"></canvas>
+<div id="envIntro" aria-hidden="true">
+  <div class="env-half env-l"></div>
+  <div class="env-ribbon"><span class="env-monogram">闫</span><span class="env-label">YAN PINGPING · RESUME</span></div>
+  <div class="env-half env-r"></div>
+</div>
 <div class="wm" aria-hidden="true">闫</div>
 <div class="bg-glyph g1" aria-hidden="true">&lt;/&gt;</div>
 <div class="bg-glyph g2" aria-hidden="true">{ }</div>
-<div id="errBox" style="display:none;position:fixed;top:70px;left:50%;transform:translateX(-50%);z-index:999;background:#8a2424;color:#fff;padding:12px 18px;border-radius:10px;font-size:13px;max-width:90%;box-shadow:0 10px 30px rgba(0,0,0,.3)"></div>
+<div id="errBox" style="display:none;position:fixed;top:70px;left:50%;transform:translateX(-50%);z-index:9999;background:#8a2424;color:#fff;padding:12px 18px;border-radius:10px;font-size:13px;max-width:90%;box-shadow:0 10px 30px rgba(0,0,0,.3)"></div>
 
 <header class="nav no-print">
   <div class="wrap nav-in">
@@ -390,10 +454,10 @@ body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;ba
 <main>
   <section class="hero" id="top"><div class="wrap hero-g" id="heroG"></div></section>
 
-  <section class="sec" id="highlights">
+  <section class="sec" id="education">
     <div class="wrap">
-      <div class="sh rv"><span class="sn">01</span><div><div class="se">Highlights</div><h2 class="sc">我的亮点</h2></div><span class="sr"></span></div>
-      <div id="hlWrap"></div>
+      <div class="sh rv"><span class="sn">01</span><div><div class="se">Education</div><h2 class="sc">教育背景与证书</h2></div><span class="sr"></span></div>
+      <div class="edu-g" id="eduG"></div>
     </div>
   </section>
 
@@ -404,9 +468,16 @@ body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;ba
     </div>
   </section>
 
+  <section class="sec" id="projects">
+    <div class="wrap">
+      <div class="sh rv"><span class="sn">03</span><div><div class="se">Projects</div><h2 class="sc">实践方向</h2></div><span class="sr"></span></div>
+      <div class="proj-grid" id="projGrid"></div>
+    </div>
+  </section>
+
   <section class="sec" id="game">
     <div class="wrap">
-      <div class="sh rv"><span class="sn">03</span><div><div class="se">Mini Games</div><h2 class="sc">小游戏 · 作品演示</h2></div><span class="sr"></span></div>
+      <div class="sh rv"><span class="sn">04</span><div><div class="se">Mini Games</div><h2 class="sc">小游戏 · 作品演示</h2></div><span class="sr"></span></div>
       <div class="game-embed-grid" id="gameEmbedGrid">
         <div class="game-embed-card rv">
           <div class="game-embed-head">
@@ -440,21 +511,21 @@ body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;ba
 
   <section class="sec" id="skills">
     <div class="wrap">
-      <div class="sh rv"><span class="sn">04</span><div><div class="se">Skill Tree</div><h2 class="sc">技能树 · 持续点亮中</h2></div><span class="sr"></span></div>
+      <div class="sh rv"><span class="sn">05</span><div><div class="se">Skill Matrix</div><h2 class="sc">技能矩阵</h2></div><span class="sr"></span></div>
       <div class="sk-grid" id="skGrid"></div>
     </div>
   </section>
 
-  <section class="sec" id="education">
+  <section class="sec" id="highlights">
     <div class="wrap">
-      <div class="sh rv"><span class="sn">05</span><div><div class="se">Education</div><h2 class="sc">教育背景与证书</h2></div><span class="sr"></span></div>
-      <div class="edu-g" id="eduG"></div>
+      <div class="sh rv"><span class="sn">06</span><div><div class="se">Highlights</div><h2 class="sc">我的亮点</h2></div><span class="sr"></span></div>
+      <div id="hlWrap"></div>
     </div>
   </section>
 
   <section class="sec" id="about">
     <div class="wrap">
-      <div class="sh rv"><span class="sn">06</span><div><div class="se">About</div><h2 class="sc">关于我</h2></div><span class="sr"></span></div>
+      <div class="sh rv"><span class="sn">07</span><div><div class="se">About</div><h2 class="sc">关于我</h2></div><span class="sr"></span></div>
       <div class="ab-w rv" id="abW"></div>
     </div>
   </section>
@@ -485,37 +556,52 @@ var R = {
   phoneD:"178-6326-0519",
   emailParts:["941","534","426","@","qq",".","com"],
   loc:"南京",
+  home:"山东枣庄",
   identity:"南京农业大学 · 计算机科学与技术（本科）· 2026.09 – 2030.06",
   status:"2026 级大一新生 · 在校学习中",
-  summary:"南京农业大学计算机科学与技术 2026 级本科生，毕业于滕州一中，曾任值日班长与班级副团支书 ，入学前已取得阿里巴巴人工智能训练师认证。具备 PPT 演示设计、视频剪辑与基础编程能力。对 AI、全栈开发与内容创作充满热情，正在系统学习编程，期待在实践中快速成长。",
-  keywords:["Python（学习中）","PPT 演示设计","视频剪辑","Excel","AI 数据标注基础","信息检索"],
+  summary:"南京农业大学计算机科学与技术 2026 级本科生，入学前已取得阿里巴巴人工智能训练师认证。PPT 演示设计与视频剪辑处于入门学习阶段，同时开始系统学习编程。对 AI、全栈开发与内容创作充满热情，期待在实践中快速成长。",
+  keywords:["Python（学习中）","PPT 演示设计","视频剪辑","Excel","AI 数据标注","Prompt 工程","信息检索"],
   cert:{title:"阿里巴巴人工智能训练师认证",desc:"入学前即取得工信部认可的职业技能等级证书，完成 AI 数据标注、模型基础认知等体系化培训与实操考核。",year:"2025",tag:"工信部认可 · 职业技能等级证书"},
   hls:[
-    {n:"01",t:"可视化表达能力",d:"熟练运用 PPT 与视频剪辑，把复杂信息变成清晰、好看的呈现，是技术与内容之间的桥梁。"},
-    {n:"02",t:"编程学习已启动",d:"正在系统学习 Python 与计算机基础课程，目标在大一结束前完成第一个个人小项目。"}
+    {n:"01",t:"可视化表达初入门",d:"正在学习 PPT 设计与视频剪辑，尝试把复杂信息整理成清晰、美观的呈现，持续积累实操经验。"},
+    {n:"02",t:"编程学习已启动",d:"正在系统学习 Python 与计算机基础课程，并通过动手实践不断巩固所学内容。"}
   ],
   exp:[
-    {role:"更多经历 · 即将开启",org:"项目实践 / 学科竞赛 / 实习",period:"2026 – 2030",future:true,points:[
-      "大一：扎实打好编程基础，完成首个个人项目",
-      "大二：参与科创竞赛（计算机设计大赛 / 互联网+ 等）",
-      "大三起：寻找技术方向实习，积累真实工程经验"
+    {role:"阿里巴巴人工智能训练师认证",org:"工信部认可 · 职业技能等级证书",period:"2025",points:[
+      "入学前完成 AI 数据标注、模型基础认知等体系化培训并通过实操考核",
+      "掌握数据标注基础、人工智能基础概念与信息检索方法",
+      "以此认证为基础，衔接后续 AI 方向的系统学习"
+    ]},
+    {role:"AI 大学认证证书",org:"人工智能进阶课程系列认证",period:"2025",points:[
+      "完成多门人工智能进阶课程学习并通过认证考核",
+      "深入掌握 AI 应用场景、提示词工程与模型训练流程",
+      "练习将 AI 学习成果结合 PPT 演示设计，转化为清晰的可视化内容"
+    ]},
+    {role:"个人实践 · HTML5 小游戏开发",org:"自制网页小游戏（星际战机 / 坦克大战）",period:"2026",points:[
+      "独立完成两款 HTML5 Canvas 小游戏的界面设计与基础玩法开发",
+      "应用所学编程知识实现键盘 / 触屏交互与简单游戏机制",
+      "通过完整项目实践巩固编程基础，锻炼独立解决问题的能力"
     ]}
   ],
-  skills:[
-    {group:"正在学习",icon:"code",items:[
-      {name:"Python",pct:30,learn:true},
-      {name:"C 语言 / 计算机基础",pct:20,learn:true},
-      {name:"数据结构与算法",pct:10,learn:true}
+  skillsMatrix:[
+    {id:"S-01",group:"AI 工程与应用",icon:"spark",items:[
+      {name:"AI 数据标注",lv:"进阶",score:72},
+      {name:"Prompt 工程",lv:"进阶",score:78},
+      {name:"RAG 检索增强",lv:"进阶",score:68},
+      {name:"模型微调",lv:"进阶",score:62},
+      {name:"智能体搭建",lv:"进阶",score:70}
     ]},
-    {group:"已掌握工具",icon:"video",items:[
-      {name:"PowerPoint 演示设计",pct:80,learn:false},
-      {name:"视频剪辑（剪映等）",pct:72,learn:false},
-      {name:"Excel 表格处理",pct:70,learn:false}
+    {id:"S-02",group:"编程与开发",icon:"code",items:[
+      {name:"HTML / CSS / JavaScript",lv:"基础",score:44},
+      {name:"Python",lv:"学习中",score:30},
+      {name:"C 语言 / 计算机基础",lv:"学习中",score:22},
+      {name:"数据结构与算法",lv:"初学者",score:16}
     ]},
-    {group:"AI 与认知",icon:"spark",items:[
-      {name:"AI 数据标注基础",pct:65,learn:false},
-      {name:"人工智能基础概念",pct:50,learn:false},
-      {name:"信息检索与自学",pct:75,learn:false}
+    {id:"S-03",group:"内容生产与设计",icon:"video",items:[
+      {name:"信息检索与自学",lv:"进阶",score:66},
+      {name:"Excel 数据处理与可视化",lv:"入门",score:42},
+      {name:"演示文稿设计",lv:"入门",score:42},
+      {name:"视频剪辑（剪映等）",lv:"入门",score:36}
     ]}
   ],
   edu:{
@@ -525,23 +611,58 @@ var R = {
     courses:["数据结构与算法","操作系统","计算机网络","数据库原理","人工智能导论","软件工程","离散数学","线性代数"],
     note:"2026 级新生，即将开启四年系统学习。目标：扎实掌握计算机核心知识，积极参与科创竞赛与项目实践，毕业前具备独立开发能力。"
   },
-  awards:[{year:"2026",name:"阿里巴巴人工智能训练师认证",note:"工信部认可 · 职业技能等级证书"}],
+  highschool:{
+    school:"滕州一中",
+    major:"高中 · 理科（已毕业）",
+    period:"2023.9 – 2026.6",
+    score:"高考 615 分 · 英语 135",
+    duties:["数学课代表","物理课代表","班级副团支书","值日班长"],
+    honors:["校级三好学生","优秀班干部","外研社英语素养大赛省二等奖"]
+  },
+  awards:[{year:"2025",name:"阿里巴巴人工智能训练师认证",note:"工信部认可 · 职业技能等级证书"}],
+  /* 证书按签发机构分组，参考网站式 CERT 编号展示 */
+  certOrgs:[
+    {name:"阿里巴巴",code:"ALIBABA",abbr:"阿里",items:[
+      {t:"人工智能训练师（高级）认证",d:"完成 AI 数据标注、模型基础认知等体系化培训与实操考核",img:"6.jpg"}
+    ]},
+    {name:"AI 大学堂",code:"AIU",abbr:"AIU",items:[
+      {t:"AI 大学认证证书",d:"人工智能进阶课程系列认证",img:"ai certificate1.png"},
+      {t:"AI 大学认证证书",d:"人工智能进阶课程系列认证",img:"ai certificate2.png"},
+      {t:"AI 大学认证证书",d:"人工智能进阶课程系列认证",img:"ai certificate3.png"},
+      {t:"AI 大学认证证书",d:"人工智能进阶课程系列认证",img:"ai certificate4.png"}
+    ]}
+  ],
   certPhotos:[
-    {src:"ai_certificate .jpg",label:"人工智能训练师（高级）"},
-    {src:"ai certificate.png",label:"AI大学认证证书"},
-    {src:"ai certificate2.png",label:"AI大学认证证书"},
-    {src:"ai certificate4 .png",label:"AI大学认证证书"},
-    {src:"ai certificate three .png",label:"AI大学认证证书"},
+    {src:"6.jpg",label:"人工智能训练师（高级）"},
+    {src:"ai certificate1.png",label:"AI 大学认证证书 1"},
+    {src:"ai certificate2.png",label:"AI 大学认证证书 2"},
+    {src:"ai certificate3.png",label:"AI 大学认证证书 3"},
+    {src:"ai certificate4.png",label:"AI 大学认证证书 4"},
+    {src:"english.png",label:"外研社英语素养大赛·省二等奖"},
     {src:"1.png",label:"证书展示 1"},
     {src:"2.png",label:"证书展示 2"},
     {src:"3.png",label:"证书展示 3"},
     {src:"4.png",label:"证书展示 4"},
     {src:"5.png",label:"证书展示 5"}
   ],
+  /* 实践方向：参考网站式分类项目卡片 */
+  projects:[
+    {cat:"AI 工程",note:"以认证为起点，逐步打通常用工具链路",items:[
+      {t:"AI 训练师 · 数据标注实践",d:"完成阿里人工智能训练师认证，覆盖模型能力评估、数据标注规范与训练结果调优的方法论，具备独立完成任务拆解与效果检验的能力。",tech:["AI 数据标注","模型调优","效果验收"],res:"工信部认可 · 人工智能训练师（高级）认证"},
+      {t:"Prompt 工程与检索增强",d:"熟练运用提示词工程与 RAG 技术，能够对专业语料进行切分、向量化与检索召回，有效抑制模型在具体场景下的跑偏与编造，并已落地到个人知识问答示例中。",tech:["Prompt 工程","RAG","信息检索"],res:"结合 AI 大学认证课程，已构建个人知识问答示例"}
+    ]},
+    {cat:"Vibe Coding",note:"借助大语言模型把想法快速变成可交付作品",items:[
+      {t:"本站 · 单文件个人主页",d:"你正在浏览的这一页：单个 HTML 文件、内联样式与脚本，在 AI 辅助下完成交互、动效与信息架构搭建。",tech:["HTML / CSS","原生 JS","AI 协作"],res:"无外部依赖，断网也可完整展示、支持深浅色与一键导出 PDF"},
+      {t:"HTML5 小游戏原型",d:"在 AI 辅助下用 Canvas 实现星际战机、坦克大战等多款可玩游戏原型，理解基础前端逻辑并能自行调试修改。",tech:["Canvas","JavaScript","LLM 协作"],res:"多款可玩原型，开放线上试玩"}
+    ]},
+    {cat:"内容与设计",note:"把复杂信息整理为清晰、美观的呈现",items:[
+      {t:"演示文稿与可视化",d:"练习将学习成果与项目内容整理为结构清晰、版式统一的演示页面，适配课堂汇报与项目展示场景。",tech:["PowerPoint","视觉排版","信息层级"],res:"正在积累作品，水平持续提升中"}
+    ]}
+  ],
   about:[
     "计算机科班新生，对 <b>AI、全栈开发与内容创作</b>充满热情，入学前已主动考取阿里 AI 训练师认证。",
-    "具备 <b>PPT 设计与视频剪辑</b>实操能力，擅长把复杂信息转化为清晰、美观的可视化表达。",
-    "自驱力强，目标明确：大一打基础、大二做项目、大三找实习，<b>一步一个脚印</b>。"
+    "<b>PPT 设计与视频剪辑</b>正在入门学习，初步尝试把复杂信息整理为清晰、美观的可视化表达。",
+    "自驱力强、目标明确，坚持按自己的节奏<b>一步一个脚印</b>地学习与积累。"
   ]
 };
 
@@ -559,6 +680,7 @@ var IC={
   copy:'<rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>',
   check:'<path d="M20 6 9 17l-5-5"/>',
   pin:'<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/>',
+home:'<path d="m3 10.5 9-7.5 9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9.5 21v-6h5v6"/>',
   award:'<circle cx="12" cy="8" r="6"/><path d="M15.48 12.89 17 22l-5-3-5 3 1.52-9.11"/>',
   code:'<path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/>',
   video:'<path d="m22 8-6 4 6 4V8z"/><rect x="2" y="6" width="14" height="12" rx="2"/>',
@@ -586,7 +708,7 @@ function setTheme(t){
 })();
 
 /* ================= 导航 ================= */
-var NAV=[{id:"highlights",l:"亮点"},{id:"experience",l:"经历"},{id:"game",l:"游戏"},{id:"skills",l:"技能"},{id:"education",l:"教育"},{id:"about",l:"关于"}];
+var NAV=[{id:"education",l:"教育"},{id:"experience",l:"经历"},{id:"projects",l:"实践方向"},{id:"game",l:"游戏"},{id:"skills",l:"技能"},{id:"highlights",l:"亮点"},{id:"about",l:"关于"}];
 (function(){
   var nl=$("navLinks"),i,it,a;
   for(i=0;i<NAV.length;i++){
@@ -640,7 +762,7 @@ var NAV=[{id:"highlights",l:"亮点"},{id:"experience",l:"经历"},{id:"game",l:
   prb.onclick=function(){window.print()};
   cta.appendChild(prb);
   left.appendChild(cta);
-  left.appendChild(ce("p","h-st",ic("pin")+" "+R.loc+" · 期待认识志同道合的伙伴与导师"));
+  left.appendChild(ce("p","h-st",ic("pin")+" 现居 "+R.loc+ic("home")+" 籍贯 "+R.home+" · 期待认识志同道合的伙伴与导师"));
   var chips=ce("div","chips");
   chips.style.marginTop="16px";
   var i;
@@ -661,10 +783,7 @@ var NAV=[{id:"highlights",l:"亮点"},{id:"experience",l:"经历"},{id:"game",l:
     '<div class="id-chip"></div>'+
     '<div class="id-row">'+
       '<span class="id-f"><i>姓名 / NAME</i><b>闫平平</b></span>'+
-    '</div>'+
-    '<div class="id-row">'+
       '<span class="id-f"><i>学院 / COLLEGE</i><b>计算机科学与技术</b></span>'+
-      '<span class="id-f"><i>籍贯 / HOME</i><b>山东</b></span>'+
     '</div>'+
     '<div class="id-row">'+
       '<span class="id-f"><i>年级 / GRADE</i><b>2026 级 · 大一</b></span>'+
@@ -753,20 +872,48 @@ function typeTerm(body,term){
   w.appendChild(tl);
 })();
 
+/* ================= 实践方向 ================= */
+(function(){
+  var g=$("projGrid");
+  if(!g||!R.projects)return;
+  var i,j,cat,note,catEl,itemEl,card,chips,k;
+  for(i=0;i<R.projects.length;i++){
+    cat=R.projects[i];
+    catEl=ce("div","proj-cat rv");
+    catEl.style.transitionDelay=(i*90)+"ms";
+    var head=ce("div","proj-cat-head");
+    head.innerHTML='<h3>'+cat.cat+'</h3><span class="proj-count">'+cat.items.length+'</span>';
+    catEl.appendChild(head);
+    if(cat.note){catEl.appendChild(ce("p","proj-cat-note",cat.note))}
+    for(j=0;j<cat.items.length;j++){
+      itemEl=cat.items[j];
+      card=ce("article","proj-card");
+      card.innerHTML='<h4>'+itemEl.t+'</h4><p class="proj-d">'+itemEl.d+'</p>';
+      chips='<div class="proj-tech">';
+      for(k=0;k<itemEl.tech.length;k++){chips+='<span class="chip">'+itemEl.tech[k]+'</span>'}
+      chips+='</div><div class="proj-res"><span class="proj-res-label">结果</span><span>'+itemEl.res+'</span></div>';
+      card.innerHTML+='<div class="proj-body">'+chips+'</div>';
+      catEl.appendChild(card);
+    }
+    g.appendChild(catEl);
+  }
+})();
+
 /* ================= 技能 ================= */
 (function(){
   var g=$("skGrid");
   var i,j,sg,c,h,it,d;
-  for(i=0;i<R.skills.length;i++){
-    sg=R.skills[i];
+  for(i=0;i<R.skillsMatrix.length;i++){
+    sg=R.skillsMatrix[i];
     c=ce("div","card sk-g rv");
     c.style.transitionDelay=(i*80)+"ms";
-    h=ce("h3",null,ic(sg.icon)+" "+sg.group);
+    h=ce("div","sk-head");
+    h.innerHTML='<span class="sk-id">'+sg.id+'</span><h3>'+ic(sg.icon)+" "+sg.group+'</h3>';
     c.appendChild(h);
     for(j=0;j<sg.items.length;j++){
       it=sg.items[j];
       d=ce("div","sk-i");
-      d.innerHTML='<div class="sk-t"><span class="sk-n">'+it.name+'</span><span class="sk-pct">'+it.pct+'%'+(it.learn?' · 加载中':'')+'</span></div><div class="bar"><i class="'+(it.learn?'learn':'')+'" style="--w:'+it.pct+'%"></i></div>';
+      d.innerHTML='<div class="sk-t"><span class="sk-n">'+it.name+'</span><span class="sk-meta"><span class="sk-lv">'+it.lv+'</span><span class="sk-pct">'+it.score+'</span></span></div><div class="bar"><i style="--w:'+it.score+'%"></i></div>';
       c.appendChild(d);
     }
     g.appendChild(c);
@@ -776,7 +923,20 @@ function typeTerm(body,term){
 /* ================= 教育 ================= */
 (function(){
   var g=$("eduG");
+  /* 高中教育经历 */
+  var hc=ce("div","card rv");
+  hc.innerHTML='<h3 class="edu-s">'+ic("book")+" "+R.highschool.school+'</h3><p class="edu-m">'+R.highschool.major+'</p><span class="tchip">'+R.highschool.period+'</span>';
+  hc.appendChild(ce("div","edu-b",'<h4>高考成绩</h4><span class="tchip" style="margin-top:2px">'+R.highschool.score+'</span>'));
+  var hb=ce("div","edu-b");
+  hb.innerHTML='<h4>担任职务</h4><div class="chips">'+R.highschool.duties.map(function(d){return '<span class="chip">'+d+'</span>'}).join("")+'</div>';
+  hc.appendChild(hb);
+  var hh=ce("div","edu-b");
+  hh.innerHTML='<h4>主要荣誉</h4><div class="chips">'+R.highschool.honors.map(function(h){return '<span class="chip" style="border-color:var(--ac)">'+h+'</span>'}).join("")+'</div>';
+  hc.appendChild(hh);
+  g.insertBefore(hc, g.firstChild);
+  /* 大学教育经历 */
   var c1=ce("div","card rv");
+  c1.style.transitionDelay="90ms";
   c1.innerHTML='<h3 class="edu-s">'+ic("book")+" "+R.edu.school+'</h3><p class="edu-m">'+R.edu.major+'</p><span class="tchip">'+R.edu.period+'</span>';
   var b1=ce("div","edu-b");
   var chips="",i;
@@ -786,22 +946,35 @@ function typeTerm(body,term){
   c1.appendChild(ce("div","edu-b",'<h4>学业规划</h4><p style="font-size:13px;color:var(--ink2);line-height:1.85">'+R.edu.note+'</p>'));
   g.appendChild(c1);
 
+  /* 证书按签发机构分组展示（参考网站式 CERT 编号，点击某张可放大） */
   var c2=ce("div","card rv");
-  c2.style.transitionDelay="90ms";
-  c2.innerHTML='<h3 class="edu-s" style="font-size:1.1rem">'+ic("award")+" 证书</h3>";
-  var j,a,r;
-  for(j=0;j<R.awards.length;j++){
-    a=R.awards[j];
-    r=ce("div","aw-r");
-    r.innerHTML='<span class="aw-y">'+a.year+'</span>'+ic("award")+'<span><span class="aw-n">'+a.name+'</span><div class="aw-d">'+a.note+'</div></span>';
-    c2.appendChild(r);
+  c2.style.transitionDelay="180ms";
+  c2.innerHTML='<h3 class="edu-s" style="font-size:1.1rem">'+ic("award")+' 证书 · 按签发机构</h3>';
+  function zpad(n){return (n<10?"0":"")+n}
+  function certIdxOf(src){for(var z=0;z<R.certPhotos.length;z++){if(R.certPhotos[z].src===src)return z}return -1}
+  var num=0,oi,orow,oorg,ohead,oitem;
+  for(oi=0;oi<R.certOrgs.length;oi++){
+    oorg=R.certOrgs[oi];
+    ohead=ce("div","cert-org-head");
+    ohead.innerHTML='<span class="cert-org-name">'+oorg.name+'</span><span class="cert-org-abbr">'+oorg.abbr+'</span>';
+    c2.appendChild(ohead);
+    for(var oj=0;oj<oorg.items.length;oj++){
+      oitem=oorg.items[oj]; num++;
+      orow=ce("div","cert-row");
+      orow.innerHTML='<span class="cert-badge">CERT-'+zpad(num)+'</span><span class="cert-t">'+oitem.t+'</span>';
+      orow.title=oitem.d;
+      orow.setAttribute("data-src",oitem.img);
+      orow.onclick=function(){var s=this.getAttribute("data-src");var ix=certIdxOf(s);if(ix>=0)openLightbox(ix)};
+      c2.appendChild(orow);
+    }
   }
+  c2.appendChild(ce("div","cert-note",'<span class="cert-badge-mini">CERT</span> 编号对应下方证书图片，点击可放大查看原图。'));
   g.appendChild(c2);
 
   /* 证书照片画廊 */
   if(R.certPhotos && R.certPhotos.length){
     var c3=ce("div","card rv");
-    c3.style.transitionDelay="140ms";
+    c3.style.transitionDelay="270ms";
     c3.innerHTML='<h3 class="edu-s" style="font-size:1.1rem;margin-bottom:6px">'+ic("award")+' 证书展示</h3>';
     var gw=ce("div","cert-gallery-wrap");
     var gl=ce("div","cert-gallery");
@@ -1245,6 +1418,214 @@ function copyEmail(btn){
   function p(n){return (n<10?"0":"")+n}
   $("yr").innerHTML=String(d.getFullYear());
   $("upd").innerHTML=d.getFullYear()+"."+p(d.getMonth()+1)+"."+p(d.getDate());
+})();
+
+/* ================= 信封开启动画（左右分屏揭开） ================= */
+(function(){
+  var env=$("envIntro"),sk=(window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  if(!env){return}
+  document.documentElement.style.overflow="hidden"; // 开场期间锁定滚动
+  var DELAY=650,HOLD=900;
+  function open(){
+    document.documentElement.style.overflow="";
+    env.className="envIntro open"; // 保留 id，className 使用 envIntro
+    setTimeout(function(){if(env.parentNode)env.parentNode.removeChild(env)},1250);
+  }
+  if(sk){env.style.display="none";document.documentElement.style.overflow="";return}
+  setTimeout(open,DELAY);
+})();
+
+/* ================= 实感折射水面（参考2水波效果，配色自适应皮肤） ================= */
+(function(){
+  var cv=$("rippleCanvas");
+  if(!cv||!cv.getContext){return}
+  var ctx=cv.getContext("2d");
+  if(!ctx){return}
+  var rm=(window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  if(rm){return}
+
+  var dpr=1;
+  /* 分辨率与状态 */
+  var GSCALE=9, SRCCAP=900;
+  var W=0,H=0, gw=0,gh=0, sw=0,sh=0;
+  var src=document.createElement("canvas"), sctx=src.getContext("2d");
+  var lr=document.createElement("canvas"), lctx=lr.getContext("2d");
+  var srcData=null, lrData=null, lrImg=null;
+  var height=null;
+  var ripples=[];
+  var tgl=0;            // 波浪高光相位（随时间滑动，产生闪烁水光）
+  var mouse={x:-1,y:-1};
+
+  function readCss(name){var v=document.documentElement;var val=getComputedStyle(v).getPropertyValue(name);return val.trim()}
+
+  /* 用 CSS 变量重建背景，保证颜色与皮肤一致（浅绿/深色都对得上） */
+  function rebuildBG(){
+    var base=readCss("--bg")||"#f4f6f1";
+    var line=readCss("--line-s")||"rgba(14,92,68,.09)";
+    var acc=readCss("--acc-soft")||"rgba(217,154,43,.12)";
+    var c=src;
+    c.width=sw;c.height=sh;
+    sctx.fillStyle=base; sctx.fillRect(0,0,sw,sh);
+    /* 右上角氛围光 */
+    var g1=sctx.createRadialGradient(sw*0.85,sh*-0.05,0,sw*0.85,sh*-0.05,Math.max(sw,sh)*0.6);
+    g1.addColorStop(0,acc); g1.addColorStop(1,"rgba(0,0,0,0)");
+    sctx.fillStyle=g1; sctx.fillRect(0,0,sw,sh);
+    /* 左下角氛围光 */
+    var g2=sctx.createRadialGradient(sw*0.08,sh*0.35,0,sw*0.08,sh*0.35,Math.max(sw,sh)*0.5);
+    g2.addColorStop(0,"rgba(14,92,68,.07)"); g2.addColorStop(1,"rgba(0,0,0,0)");
+    sctx.fillStyle=g2; sctx.fillRect(0,0,sw,sh);
+    /* 网格线：屏幕 32px 网格 → src 缩放后的间距 */
+    sctx.strokeStyle=line; sctx.lineWidth=1;
+    var step=32*(sw/W);       // src 像素空间下的网格间距
+    step=Math.max(2,step);
+    var x,y;
+    sctx.beginPath();
+    for(x=step;x<sw;x+=step){sctx.moveTo(x,0);sctx.lineTo(x,sh)}
+    for(y=step;y<sh;y+=step){sctx.moveTo(0,y);sctx.lineTo(sw,y)}
+    sctx.stroke();
+    /* 淡淡的斜纹水纹，让折射位移（网格弯曲/水光）在浅色背景上依然可见 */
+    sctx.strokeStyle=line; sctx.lineWidth=1; sctx.beginPath();
+    var sx2,sp=step*1.6;
+    for(sx2=-sh;sx2<sw;sx2+=sp){sctx.moveTo(sx2,0);sctx.lineTo(sx2+sh,sh)}
+    sctx.stroke();
+    srcData=sctx.getImageData(0,0,sw,sh);
+  }
+
+  function setup(){
+    W=window.innerWidth; H=window.innerHeight;
+    cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr);
+    gw=Math.round(W/GSCALE);      gh=Math.round(H/GSCALE);
+    var cap=SRCCAP;
+    var s=Math.min(1,cap/Math.max(W,H));
+    sw=Math.round(W*s); sh=Math.round(H*s);
+    lr.width=gw; lr.height=gh;
+    lrData=lctx.createImageData(gw,gh); lrImg=lrData.data;
+    height=new Float32Array(gw*gh);
+    rebuildBG();
+  }
+  window.addEventListener("resize",setup);
+
+  /* 皮肤主题切换时重建背景色 */
+  if(window.MutationObserver){
+    var mo=new MutationObserver(function(){rebuildBG()});
+    mo.observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
+  }
+
+  function addRipple(nx,ny,strong){
+    if(ripples.length>22)ripples.shift();
+    ripples.push({x:nx*gw, y:ny*gh, r:2, amp:strong?1.2:0.75, spd:strong?0.8:0.5, ph:Math.random()*6.28, damp:1});
+  }
+
+  function step(){
+    var i,r;
+    for(i=ripples.length-1;i>=0;i--){
+      r=ripples[i];
+      r.r+=r.spd;
+      r.damp*=0.985;
+      if(r.damp<0.03){ripples.splice(i,1);continue}
+      /* 在涟漪包围盒内向高度场累加波浪 */
+      var R=Math.ceil(r.r),cx=r.x,cy=r.y;
+      var x0=cx-R,y0=cy-R,x1=cx+R,y1=cy+R;
+      var yy,xx,dx,dy,n,val;
+      if(x0<0)x0=0;if(y0<0)y0=0;if(x1>gw-1)x1=gw-1;if(y1>gh-1)y1=gh-1;
+      for(yy=y0;yy<=y1;yy++){
+        dy=yy-cy;
+        for(xx=x0;xx<=x1;xx++){
+          dx=xx-cx;
+          n=dx*dx+dy*dy;
+          if(n>(R*R)*1.5)continue;
+          n=Math.sqrt(n)/Math.max(1,R);
+          val=Math.exp(-n*n*2.6)*Math.sin(n*5.0-r.ph- r.r*0.35);
+          height[yy*gw+xx]+=r.amp*val*r.damp;
+        }
+      }
+    }
+    /* 由高度场梯度 → 折射偏移，重采样源图 */
+    var d=lrData.data, sd=srcData.data, sx, sy, hx, hy, dx2,dy2;
+    var STR=6.0, kx=sw/gw, ky=sh/gh;
+    var yGl,xGl,H0,Hx,Hy,ox,oy;
+    for(yGl=0;yGl<gh;yGl++){
+      for(xGl=0;xGl<gw;xGl++){
+        var idxG=yGl*gw+xGl;
+        H0=height[idxG];
+        Hx=(xGl<gw-1?height[idxG+1]:H0)-(xGl>0?height[idxG-1]:H0);
+        Hy=(yGl<gh-1?height[idxG+gw]:H0)-(yGl>0?height[idxG-gw]:H0);
+        /* 映射到源图采样坐标并加折射位移 */
+        sx=xGl*kx+Hx*STR;
+        sy=yGl*ky+Hy*STR;
+        if(sx<1)sx=1;else if(sx>sw-2)sx=sw-2;
+        if(sy<1)sy=1;else if(sy>sh-2)sy=sh-2;
+        var x0=sx|0,y0=sy|0,fx2=sx-x0,fy2=sy-y0;
+        var p=y0*sw+x0,pr=(y0+1)*sw+x0,idxD=idxG*4;
+        /* 双线性采样 */
+        var af=(1-fx2)*(1-fy2),bf=(fx2)*(1-fy2),cf=(1-fx2)*fy2,df=(fx2)*fy2;
+        var o=p*4, q=pr*4;
+        d[idxD]  =(sd[o]  *af+sd[o+4]  *bf+sd[q]  *cf+sd[q+4]  *df);
+        d[idxD+1]=(sd[o+1]*af+sd[o+5]*bf+sd[q+1]*cf+sd[q+5]*df);
+        d[idxD+2]=(sd[o+2]*af+sd[o+6]*bf+sd[q+2]*cf+sd[q+6]*df);
+        d[idxD+3]=255;
+        /* 直接把水波渲染成可见的明暗翘伏 + 闪烁水光，不再依赖背景纹理 */
+        /* 1) 波浪明暗：柔和明暗，避免生硬晃动 */
+        var lw=Math.max(-38,Math.min(38,H0*24));
+        /* 2) 柔和滑动的镜面水光：低频慢速，不闪烁刺眼 */
+        var cau=0;
+        var slope=(Hx*Hx+Hy*Hy);
+        if(slope>0.003){
+          var tw=Math.sin(tgl+(xGl*0.16+yGl*0.12)*6.2831);
+          var c=Math.min(70,(Math.sqrt(slope)+0.2)*38);
+          if(tw>0.10)cau=tw*c;
+        }
+        /* 合成：轻微带一点水色(偏绿)的增亮 */
+        d[idxD]  += lw*0.82 + cau*0.85;
+        d[idxD+1]+= lw*0.58 + cau*0.95 + cau*0.10;
+        d[idxD+2]+= lw*0.78 + cau*0.82;
+        /* 让过亮处柔和回落，保持水光而非刺眼 */
+        if(d[idxD]>250){d[idxD]=Math.min(255,d[idxD]+(250-d[idxD])*0.4)}
+        if(d[idxD+1]>250){d[idxD+1]=Math.min(255,d[idxD+1]+(250-d[idxD+1])*0.4)}
+        if(d[idxD+2]>250){d[idxD+2]=Math.min(255,d[idxD+2]+(250-d[idxD+2])*0.4)}
+      }
+    }
+    /* 重置高度场 */
+    height.fill(0);
+    lctx.putImageData(lrData,0,0);
+    ctx.drawImage(lr,0,0,gw,gh,0,0,cv.width,cv.height);
+  }
+
+  /* 鼠标 / 触控产生涟漪 */
+  var lastM=0;
+  document.addEventListener("mousemove",function(e){
+    var now=Date.now();
+    if(now-lastM<40)return;
+    lastM=now;
+    var nx=e.clientX/W, ny=e.clientY/H;
+    addRipple(nx,ny,true);
+  },{passive:true});
+  function touch(e){
+    var t=e.touches?e.touches[0]:e;
+    addRipple(t.clientX/W,t.clientY/H,true);
+  }
+  document.addEventListener("touchstart",touch,{passive:true});
+  document.addEventListener("touchmove",touch,{passive:true});
+
+  /* 无人操作时也持续泛起柔和波浪；约 30fps 渲染，后台标签页暂停以省 CPU */
+  var frame=0;
+  function loop(){
+    requestAnimationFrame(loop);
+    if(document.hidden)return;         // 后台页不渲染，避免占资源
+    frame++;
+    tgl+=0.07;                          // 更慢的水光滑动
+    /* 保持少量柔和环境波，避免过多波浪造成晃动 */
+    var amb=0,i2;
+    for(i2=0;i2<ripples.length;i2++){if(ripples[i2].amp<1.1)amb++}
+    if(amb<4){addRipple(Math.random(),Math.random(),false)}
+    if(frame%40===0&&Math.random()<0.7){addRipple(Math.random(),Math.random(),false)}
+    if(frame%2===0)step();             // 隔帧渲染 ≈ 30fps
+  }
+  setup();
+  /* 首帧先画静态背景，避免页面空白 */
+  lctx.putImageData(lrData,0,0);
+  ctx.drawImage(lr,0,0,gw,gh,0,0,cv.width,cv.height);
+  loop();
 })();
 
 }catch(err){
